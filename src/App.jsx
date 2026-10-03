@@ -1,18 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, lazy, Suspense } from 'react';
 import PreHeroCutComb from './components/PreHeroCutComb';
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
 import TrustMetricsStrip from './components/TrustMetricsStrip';
-import StreetViewLocation from './components/StreetViewLocation';
 import ServicesAtelier from './components/ServicesAtelier';
-import LookbookGallery from './components/LookbookGallery';
-import MasterStylists from './components/MasterStylists';
-import VIPTourExperience from './components/VIPTourExperience';
-import ReviewsPress from './components/ReviewsPress';
-import Footer from './components/Footer';
-import BookingConcierge from './components/BookingConcierge';
 import MobileBottomBar from './components/MobileBottomBar';
 import { audioManager } from './utils/audioManager';
+
+// Code-split heavy off-screen sections & on-demand modal
+const StreetViewLocation = lazy(() => import('./components/StreetViewLocation'));
+const LookbookGallery = lazy(() => import('./components/LookbookGallery'));
+const MasterStylists = lazy(() => import('./components/MasterStylists'));
+const VIPTourExperience = lazy(() => import('./components/VIPTourExperience'));
+const ReviewsPress = lazy(() => import('./components/ReviewsPress'));
+const Footer = lazy(() => import('./components/Footer'));
+const BookingConcierge = lazy(() => import('./components/BookingConcierge'));
 
 export default function App() {
   const [introProgress, setIntroProgress] = useState(0);
@@ -99,7 +101,9 @@ export default function App() {
         <TrustMetricsStrip />
 
         {/* 4. Dedicated Ambawadi Studio Location & Dark City Map */}
-        <StreetViewLocation />
+        <Suspense fallback={<div className="w-full min-h-[300px]" />}>
+          <StreetViewLocation />
+        </Suspense>
 
         {/* 5. Signature Services Atelier Menu */}
         <ServicesAtelier
@@ -108,25 +112,19 @@ export default function App() {
           onOpenBooking={() => handleOpenBooking(selectedServiceId)}
         />
 
-        {/* 6. Interactive Before/After Lookbook Transformations */}
-        <LookbookGallery
-          onOpenBooking={() => handleOpenBooking()}
-        />
-
-        {/* 7. Master Stylists & Director Atelier */}
-        <MasterStylists
-          onSelectStylist={(id) => {
-            setSelectedStylistId(id);
-            handleOpenBooking(null, id);
-          }}
-          onOpenBooking={() => handleOpenBooking()}
-        />
-
-        {/* 8. VIP Salon Amenities & Atmosphere Tour */}
-        <VIPTourExperience onOpenBooking={() => handleOpenBooking()} />
-
-        {/* 9. Ahmedabad Tastemaker Reviews & Press */}
-        <ReviewsPress />
+        {/* 6. Interactive Before/After Lookbook Transformations & Media Sections */}
+        <Suspense fallback={<div className="w-full min-h-[300px]" />}>
+          <LookbookGallery onOpenBooking={() => handleOpenBooking()} />
+          <MasterStylists
+            onSelectStylist={(id) => {
+              setSelectedStylistId(id);
+              handleOpenBooking(null, id);
+            }}
+            onOpenBooking={() => handleOpenBooking()}
+          />
+          <VIPTourExperience onOpenBooking={() => handleOpenBooking()} />
+          <ReviewsPress />
+        </Suspense>
       </main>
 
       {/* 10. Luxury Footer */}
@@ -138,7 +136,9 @@ export default function App() {
           visibility: isSequenceFinished ? 'visible' : 'hidden',
         }}
       >
-        <Footer onOpenBooking={() => handleOpenBooking()} />
+        <Suspense fallback={null}>
+          <Footer onOpenBooking={() => handleOpenBooking()} />
+        </Suspense>
       </div>
 
       {/* 11. Mobile Sticky Action Bar */}
@@ -146,13 +146,17 @@ export default function App() {
         <MobileBottomBar onOpenBooking={() => handleOpenBooking()} />
       )}
 
-      {/* 12. Multi-Step Bespoke Booking Concierge Modal */}
-      <BookingConcierge
-        isOpen={isBookingOpen}
-        onClose={() => setIsBookingOpen(false)}
-        preselectedServiceId={selectedServiceId}
-        preselectedStylistId={selectedStylistId}
-      />
+      {/* 12. Multi-Step Bespoke Booking Concierge Modal (Loaded on-demand) */}
+      {isBookingOpen && (
+        <Suspense fallback={null}>
+          <BookingConcierge
+            isOpen={isBookingOpen}
+            onClose={() => setIsBookingOpen(false)}
+            preselectedServiceId={selectedServiceId}
+            preselectedStylistId={selectedStylistId}
+          />
+        </Suspense>
+      )}
 
     </div>
   );

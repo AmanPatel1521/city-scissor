@@ -23,10 +23,14 @@
     <meta name="twitter:description" content="Ahmedabad's premier luxury salon on Main Road opposite BRTS, Ambawadi." />
     <meta name="twitter:image" content="/images/Ahmedabad_City.jpg" />
 
-    <!-- Google Fonts: Syne, Cinzel, Cormorant Garamond, Plus Jakarta Sans, Montserrat -->
+    <!-- Preload Critical LCP Intro Images with High Priority -->
+    <link rel="preload" as="image" type="image/webp" href="/images/Ahmedabad_City_Mobile.webp" media="(max-width: 767px)" fetchpriority="high" />
+    <link rel="preload" as="image" type="image/webp" href="/images/Ahmedabad_City.webp" media="(min-width: 768px)" fetchpriority="high" />
+
+    <!-- Google Fonts: Active Weights Only with DNS Preconnect and Swap Display -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,600&family=Montserrat:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@600;700&display=swap" rel="stylesheet" />
   </head>
   <body class="bg-[#070709] text-[#F8F8FA] antialiased selection:bg-[#D4AF37] selection:text-black">
     <div id="root"></div>

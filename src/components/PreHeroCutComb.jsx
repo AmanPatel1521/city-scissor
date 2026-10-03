@@ -340,10 +340,14 @@ export default function PreHeroCutComb({ onIntroProgress, onIntroComplete }) {
         }}
       >
         <picture className="absolute inset-0 w-full h-full pointer-events-none select-none">
-          <source media="(max-width: 767px)" srcSet="/images/Ahmedabad_City_Mobile.jpg" />
+          <source media="(max-width: 767px)" type="image/webp" srcSet="/images/Ahmedabad_City_Mobile.webp" />
+          <source media="(max-width: 767px)" type="image/jpeg" srcSet="/images/Ahmedabad_City_Mobile.jpg" />
+          <source type="image/webp" srcSet="/images/Ahmedabad_City.webp" />
           <img
             src="/images/Ahmedabad_City.jpg"
             alt="Ahmedabad City"
+            decoding="async"
+            fetchPriority="high"
             className="w-full h-full object-cover object-center pointer-events-none select-none"
           />
         </picture>
@@ -360,10 +364,14 @@ export default function PreHeroCutComb({ onIntroProgress, onIntroComplete }) {
         }}
       >
         <picture className="absolute inset-0 w-full h-full pointer-events-none select-none">
-          <source media="(max-width: 767px)" srcSet="/images/Ahmedabad_City_Mobile.jpg" />
+          <source media="(max-width: 767px)" type="image/webp" srcSet="/images/Ahmedabad_City_Mobile.webp" />
+          <source media="(max-width: 767px)" type="image/jpeg" srcSet="/images/Ahmedabad_City_Mobile.jpg" />
+          <source type="image/webp" srcSet="/images/Ahmedabad_City.webp" />
           <img
             src="/images/Ahmedabad_City.jpg"
             alt="Ahmedabad City"
+            decoding="async"
+            fetchPriority="high"
             className="w-full h-full object-cover object-center pointer-events-none select-none"
           />
         </picture>

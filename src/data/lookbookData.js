@@ -6,8 +6,8 @@ export const lookbookTransformations = [
     stylist: 'Aryan Mehta & Kabir Varma',
     duration: '75 mins',
     tags: ['Low Skin Fade', 'Textured Crop', 'Matte Finish'],
-    beforeImg: '/images/messy_hair_before.jpg',
-    afterImg: '/images/fade_haircut_after.jpg',
+    beforeImg: '/images/messy_hair_before.webp',
+    afterImg: '/images/fade_haircut_after.webp',
     description: 'Transformation from overgrown dense volume to a sharply sculpted low skin fade with micro-texture top and laser-aligned beard perimeter.',
   },
   {
@@ -17,8 +17,8 @@ export const lookbookTransformations = [
     stylist: 'Rhea Sharma',
     duration: '180 mins',
     tags: ['Freehand Balayage', 'Olaplex Bond Lock', 'Caramel Gloss'],
-    beforeImg: '/images/balayage_before.jpg',
-    afterImg: '/images/balayage_after.jpg',
+    beforeImg: '/images/balayage_before.webp',
+    afterImg: '/images/balayage_after.webp',
     description: 'Custom sun-drenched French balayage blending natural dark roots into warm caramel and honey ribbon dimensions with zero demarcation.',
   },
   {
@@ -28,8 +28,8 @@ export const lookbookTransformations = [
     stylist: 'Aryan Mehta',
     duration: '90 mins',
     tags: ['Razor Cut', 'French Bob', 'Feathered Fringe'],
-    beforeImg: '/images/bob_before.jpg',
-    afterImg: '/images/bob_after.jpg',
+    beforeImg: '/images/bob_before.webp',
+    afterImg: '/images/bob_after.webp',
     description: 'A striking haircut transformation sculpting weightless Parisian movement, framing the cheekbones with soft razor feathering.',
   },
   {
@@ -39,8 +39,8 @@ export const lookbookTransformations = [
     stylist: 'Dr. Tanya Desai',
     duration: '120 mins',
     tags: ['Hair Botox', 'Caviar Complex', 'Mirror Lamination'],
-    beforeImg: '/images/botox_before.jpg',
-    afterImg: '/images/botox_after.jpg',
+    beforeImg: '/images/botox_before.webp',
+    afterImg: '/images/botox_after.webp',
     description: 'Deep cellular rejuvenation repairing humidity damage, sealing porous cuticles to create a liquid glass reflection and zero frizz.',
   },
 ];

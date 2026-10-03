@@ -14,7 +14,7 @@ export default defineConfig({
         manualChunks: {
           three: ['three'],
           animations: ['gsap', '@gsap/react', 'animejs'],
-          vendor: ['react', 'react-dom', 'lucide-react', 'canvas-confetti'],
+          vendor: ['react', 'react-dom', 'lucide-react'],
         }
       }
     }
