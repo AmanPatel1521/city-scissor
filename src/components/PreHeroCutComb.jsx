@@ -327,36 +327,38 @@ export default function PreHeroCutComb({ onIntroProgress, onIntroComplete }) {
         }}
       />
 
-      {/* Splitting Left Curtain Wing (Ahmedabad City) */}
+      {/* Splitting Left Curtain Wing (Ahmedabad City - Left 50%) */}
       <div
-        className="absolute top-0 left-0 w-1/2 h-full bg-[#070709] border-r border-[#D4AF37]/80 shadow-[30px_0_80px_rgba(0,0,0,0.95)] origin-top-left transition-transform duration-100 ease-out pointer-events-auto z-10"
+        className="absolute inset-0 w-full h-full origin-top-left transition-transform duration-100 ease-out pointer-events-auto z-10 overflow-hidden"
         style={{
           transform: `translateX(-${displayProgress * 110}%) rotate(-${displayProgress * 4}deg)`,
-          opacity: 1,
-          backgroundImage: 'url(/images/Ahmedabad_City.jpg)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'left center',
-          backgroundRepeat: 'no-repeat'
+          clipPath: 'polygon(0 0, 50% 0, 50% 100%, 0 100%)',
         }}
       >
+        <img
+          src="/images/Ahmedabad_City.jpg"
+          alt="Ahmedabad City"
+          className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none select-none"
+        />
         <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
-        <div className="absolute right-0 top-0 bottom-0 w-[2px] bg-gradient-to-b from-transparent via-[#D4AF37] to-transparent shadow-[0_0_25px_#D4AF37]" />
+        <div className="absolute left-[50%] -translate-x-full top-0 bottom-0 w-[2px] bg-gradient-to-b from-transparent via-[#D4AF37] to-transparent shadow-[0_0_25px_#D4AF37]" />
       </div>
 
-      {/* Splitting Right Curtain Wing (Ahmedabad City) */}
+      {/* Splitting Right Curtain Wing (Ahmedabad City - Right 50%) */}
       <div
-        className="absolute top-0 right-0 w-1/2 h-full bg-[#070709] border-l border-[#D4AF37]/80 shadow-[-30px_0_80px_rgba(0,0,0,0.95)] origin-top-right transition-transform duration-100 ease-out pointer-events-auto z-10"
+        className="absolute inset-0 w-full h-full origin-top-right transition-transform duration-100 ease-out pointer-events-auto z-10 overflow-hidden"
         style={{
           transform: `translateX(${displayProgress * 110}%) rotate(${displayProgress * 4}deg)`,
-          opacity: 1,
-          backgroundImage: 'url(/images/Ahmedabad_City.jpg)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'right center',
-          backgroundRepeat: 'no-repeat'
+          clipPath: 'polygon(50% 0, 100% 0, 100% 100%, 50% 100%)',
         }}
       >
+        <img
+          src="/images/Ahmedabad_City.jpg"
+          alt="Ahmedabad City"
+          className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none select-none"
+        />
         <div className="absolute inset-0 bg-gradient-to-l from-black/80 via-black/40 to-transparent" />
-        <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-gradient-to-b from-transparent via-[#D4AF37] to-transparent shadow-[0_0_25px_#D4AF37]" />
+        <div className="absolute left-[50%] top-0 bottom-0 w-[2px] bg-gradient-to-b from-transparent via-[#D4AF37] to-transparent shadow-[0_0_25px_#D4AF37]" />
       </div>
 
       {/* Center Laser Hair-Parting Line */}
