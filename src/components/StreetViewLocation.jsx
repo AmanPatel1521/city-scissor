@@ -20,6 +20,24 @@ export default function StreetViewLocation() {
     { from: 'Ahmedabad Airport', time: '30 Mins', dist: '14.5 km' },
   ];
 
+  const [loadMap, setLoadMap] = React.useState(false);
+  const mapContainerRef = React.useRef(null);
+
+  React.useEffect(() => {
+    if (!mapContainerRef.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setLoadMap(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '300px' }
+    );
+    observer.observe(mapContainerRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section id="location" className="w-full py-16 sm:py-24 lg:py-32 px-4 sm:px-10 lg:px-16 bg-[#0a0a0f]" style={{ borderTop: '1px solid rgba(212,175,55,0.15)', overflow: 'hidden' }}>
 
@@ -56,19 +74,27 @@ export default function StreetViewLocation() {
           {/* Main Map Visual Window (8 Cols) */}
           <div className="lg:col-span-8">
             <div
+              ref={mapContainerRef}
               className="relative w-full rounded-2xl overflow-hidden bg-[#0d0d12] shadow-2xl h-[330px] sm:h-[440px]"
               style={{ border: '1px solid rgba(212,175,55,0.28)' }}
             >
               <div className="absolute inset-0 w-full h-full bg-[#070709]">
-                <iframe
-                  title="City Scissor unisex salon location map in Ambawadi"
-                  src={mapUrl}
-                  className="w-full h-full border-0"
-                  style={{ filter: 'grayscale(1) invert(0.9) hue-rotate(180deg) brightness(0.72) contrast(1.08) saturate(0.62)' }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                />
+                {loadMap ? (
+                  <iframe
+                    title="City Scissor unisex salon location map in Ambawadi"
+                    src={mapUrl}
+                    className="w-full h-full border-0"
+                    style={{ filter: 'grayscale(1) invert(0.9) hue-rotate(180deg) brightness(0.72) contrast(1.08) saturate(0.62)' }}
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                  />
+                ) : (
+                  <div className="w-full h-full flex flex-col items-center justify-center text-[#9C9EA9] gap-3">
+                    <MapPin className="w-8 h-8 text-[#D4AF37] animate-pulse" />
+                    <p className="text-[11px] font-mono uppercase tracking-widest text-[#E6CA65]">Loading Ambawadi Studio Map...</p>
+                  </div>
+                )}
                 <div className="absolute inset-0 pointer-events-none" style={{ boxShadow: 'inset 0 0 44px rgba(7,7,9,1)' }} />
               </div>
 

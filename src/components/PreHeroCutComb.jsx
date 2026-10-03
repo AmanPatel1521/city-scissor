@@ -39,12 +39,18 @@ export default function PreHeroCutComb({ onIntroProgress, onIntroComplete }) {
   useEffect(() => {
     if (!canvasRef.current) return;
 
-    const width = window.innerWidth;
-    const height = window.innerHeight;
+    let isDisposed = false;
+    let cleanupFn = null;
     const isMobile = window.matchMedia('(max-width: 767px)').matches;
 
-    // 1. Scene & Camera & Audio Auto-Init
-    audioManager.init();
+    const setupWebGL = () => {
+      if (isDisposed || !canvasRef.current) return;
+
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+
+      // 1. Scene & Camera & Audio Auto-Init
+      audioManager.init();
 
     const scene = new THREE.Scene();
     sceneRef.current = scene;
@@ -217,19 +223,26 @@ export default function PreHeroCutComb({ onIntroProgress, onIntroComplete }) {
       renderer.render(scene, camera);
     };
 
-    animate();
+      cleanupFn = () => {
+        cancelAnimationFrame(animFrameRef.current);
+        window.removeEventListener('mousemove', handleMouseMove);
+        window.removeEventListener('resize', handleResize);
+        envMap.dispose();
+        scene.traverse((object) => {
+          object.geometry?.dispose?.();
+          const materials = Array.isArray(object.material) ? object.material : [object.material];
+          materials.forEach((material) => material?.dispose?.());
+        });
+        renderer.dispose();
+      };
+    };
+
+    const timer = setTimeout(setupWebGL, isMobile ? 60 : 0);
 
     return () => {
-      cancelAnimationFrame(animFrameRef.current);
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('resize', handleResize);
-      envMap.dispose();
-      scene.traverse((object) => {
-        object.geometry?.dispose?.();
-        const materials = Array.isArray(object.material) ? object.material : [object.material];
-        materials.forEach((material) => material?.dispose?.());
-      });
-      renderer.dispose();
+      isDisposed = true;
+      clearTimeout(timer);
+      if (cleanupFn) cleanupFn();
     };
   }, []);
 
@@ -340,7 +353,7 @@ export default function PreHeroCutComb({ onIntroProgress, onIntroComplete }) {
         }}
       >
         <picture className="absolute inset-0 w-full h-full pointer-events-none select-none">
-          <source media="(max-width: 767px)" type="image/webp" srcSet="/images/Ahmedabad_City_Mobile.webp" />
+          <source media="(max-width: 767px)" type="image/webp" srcSet="/images/Ahmedabad_City_Mobile_720.webp" />
           <source media="(max-width: 767px)" type="image/jpeg" srcSet="/images/Ahmedabad_City_Mobile.jpg" />
           <source type="image/webp" srcSet="/images/Ahmedabad_City.webp" />
           <img
@@ -364,7 +377,7 @@ export default function PreHeroCutComb({ onIntroProgress, onIntroComplete }) {
         }}
       >
         <picture className="absolute inset-0 w-full h-full pointer-events-none select-none">
-          <source media="(max-width: 767px)" type="image/webp" srcSet="/images/Ahmedabad_City_Mobile.webp" />
+          <source media="(max-width: 767px)" type="image/webp" srcSet="/images/Ahmedabad_City_Mobile_720.webp" />
           <source media="(max-width: 767px)" type="image/jpeg" srcSet="/images/Ahmedabad_City_Mobile.jpg" />
           <source type="image/webp" srcSet="/images/Ahmedabad_City.webp" />
           <img

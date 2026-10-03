@@ -55,6 +55,8 @@ export default function App() {
 
   // The Hero Section & Menus should only be visible after the pre-hero sequence completes
   const isSequenceFinished = introProgress >= 0.95 || isIntroDone;
+  // Defer heavy offscreen media sections until intro begins or completes
+  const shouldMountOffscreen = isSequenceFinished || introProgress > 0.05;
 
   return (
     <div className="min-h-screen bg-[#070709] text-[#F8F8FA] selection:bg-[#D4AF37] selection:text-black font-sans relative">
@@ -101,9 +103,11 @@ export default function App() {
         <TrustMetricsStrip />
 
         {/* 4. Dedicated Ambawadi Studio Location & Dark City Map */}
-        <Suspense fallback={<div className="w-full min-h-[300px]" />}>
-          <StreetViewLocation />
-        </Suspense>
+        {shouldMountOffscreen && (
+          <Suspense fallback={<div className="w-full min-h-[300px]" />}>
+            <StreetViewLocation />
+          </Suspense>
+        )}
 
         {/* 5. Signature Services Atelier Menu */}
         <ServicesAtelier
@@ -113,33 +117,37 @@ export default function App() {
         />
 
         {/* 6. Interactive Before/After Lookbook Transformations & Media Sections */}
-        <Suspense fallback={<div className="w-full min-h-[300px]" />}>
-          <LookbookGallery onOpenBooking={() => handleOpenBooking()} />
-          <MasterStylists
-            onSelectStylist={(id) => {
-              setSelectedStylistId(id);
-              handleOpenBooking(null, id);
-            }}
-            onOpenBooking={() => handleOpenBooking()}
-          />
-          <VIPTourExperience onOpenBooking={() => handleOpenBooking()} />
-          <ReviewsPress />
-        </Suspense>
+        {shouldMountOffscreen && (
+          <Suspense fallback={<div className="w-full min-h-[300px]" />}>
+            <LookbookGallery onOpenBooking={() => handleOpenBooking()} />
+            <MasterStylists
+              onSelectStylist={(id) => {
+                setSelectedStylistId(id);
+                handleOpenBooking(null, id);
+              }}
+              onOpenBooking={() => handleOpenBooking()}
+            />
+            <VIPTourExperience onOpenBooking={() => handleOpenBooking()} />
+            <ReviewsPress />
+          </Suspense>
+        )}
       </main>
 
       {/* 10. Luxury Footer */}
-      <div
-        className="transition-opacity duration-700 ease-out"
-        style={{
-          opacity: isSequenceFinished ? 1 : 0,
-          pointerEvents: isSequenceFinished ? 'auto' : 'none',
-          visibility: isSequenceFinished ? 'visible' : 'hidden',
-        }}
-      >
-        <Suspense fallback={null}>
-          <Footer onOpenBooking={() => handleOpenBooking()} />
-        </Suspense>
-      </div>
+      {shouldMountOffscreen && (
+        <div
+          className="transition-opacity duration-700 ease-out"
+          style={{
+            opacity: isSequenceFinished ? 1 : 0,
+            pointerEvents: isSequenceFinished ? 'auto' : 'none',
+            visibility: isSequenceFinished ? 'visible' : 'hidden',
+          }}
+        >
+          <Suspense fallback={null}>
+            <Footer onOpenBooking={() => handleOpenBooking()} />
+          </Suspense>
+        </div>
+      )}
 
       {/* 11. Mobile Sticky Action Bar */}
       {isSequenceFinished && !isBookingOpen && (

@@ -24,13 +24,17 @@
     <meta name="twitter:image" content="/images/Ahmedabad_City.jpg" />
 
     <!-- Preload Critical LCP Intro Images with High Priority -->
-    <link rel="preload" as="image" type="image/webp" href="/images/Ahmedabad_City_Mobile.webp" media="(max-width: 767px)" fetchpriority="high" />
+    <link rel="preload" as="image" type="image/webp" href="/images/Ahmedabad_City_Mobile_720.webp" media="(max-width: 767px)" fetchpriority="high" />
     <link rel="preload" as="image" type="image/webp" href="/images/Ahmedabad_City.webp" media="(min-width: 768px)" fetchpriority="high" />
 
-    <!-- Google Fonts: Active Weights Only with DNS Preconnect and Swap Display -->
+    <!-- Google Fonts: Non-render-blocking asynchronous load with swap display -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,600&family=Montserrat:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@600;700&display=swap" rel="stylesheet" />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,600&family=Montserrat:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@600;700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,600&family=Montserrat:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@600;700&display=swap" media="print" onload="this.media='all'" />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,600&family=Montserrat:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@600;700&display=swap" />
+    </noscript>
   </head>
   <body class="bg-[#070709] text-[#F8F8FA] antialiased selection:bg-[#D4AF37] selection:text-black">
     <div id="root"></div>
