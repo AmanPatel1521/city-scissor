@@ -339,12 +339,27 @@ export default function PreHeroCutComb({ onIntroProgress, onIntroComplete }) {
           clipPath: 'polygon(0 0, 50% 0, 50% 100%, 0 100%)',
         }}
       >
+        {/* Soft atmospheric blurred backdrop filling mobile vertical aspect */}
+        <div className="absolute inset-0 w-full h-full sm:hidden pointer-events-none select-none overflow-hidden" aria-hidden="true">
+          <img
+            src="/images/Ahmedabad_City.jpg"
+            alt=""
+            className="w-full h-full object-cover object-center blur-3xl opacity-50 scale-125"
+          />
+          <div className="absolute inset-0 bg-[#070709]/75" />
+        </div>
+
+        {/* Full crisp Ahmedabad City photo */}
         <img
           src="/images/Ahmedabad_City.jpg"
           alt="Ahmedabad City"
-          className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none select-none"
+          className="absolute inset-0 w-full h-full object-contain sm:object-cover object-center pointer-events-none select-none"
+          style={{
+            maskImage: 'linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%)',
+            WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%)',
+          }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent" />
         <div className="absolute left-[50%] -translate-x-full top-0 bottom-0 w-[2px] bg-gradient-to-b from-transparent via-[#D4AF37] to-transparent shadow-[0_0_25px_#D4AF37]" />
       </div>
 
@@ -356,12 +371,27 @@ export default function PreHeroCutComb({ onIntroProgress, onIntroComplete }) {
           clipPath: 'polygon(50% 0, 100% 0, 100% 100%, 50% 100%)',
         }}
       >
+        {/* Soft atmospheric blurred backdrop filling mobile vertical aspect */}
+        <div className="absolute inset-0 w-full h-full sm:hidden pointer-events-none select-none overflow-hidden" aria-hidden="true">
+          <img
+            src="/images/Ahmedabad_City.jpg"
+            alt=""
+            className="w-full h-full object-cover object-center blur-3xl opacity-50 scale-125"
+          />
+          <div className="absolute inset-0 bg-[#070709]/75" />
+        </div>
+
+        {/* Full crisp Ahmedabad City photo */}
         <img
           src="/images/Ahmedabad_City.jpg"
           alt="Ahmedabad City"
-          className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none select-none"
+          className="absolute inset-0 w-full h-full object-contain sm:object-cover object-center pointer-events-none select-none"
+          style={{
+            maskImage: 'linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%)',
+            WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%)',
+          }}
         />
-        <div className="absolute inset-0 bg-gradient-to-l from-black/80 via-black/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-l from-black/70 via-black/30 to-transparent" />
         <div className="absolute left-[50%] top-0 bottom-0 w-[2px] bg-gradient-to-b from-transparent via-[#D4AF37] to-transparent shadow-[0_0_25px_#D4AF37]" />
       </div>
 
@@ -375,9 +405,9 @@ export default function PreHeroCutComb({ onIntroProgress, onIntroComplete }) {
         }}
       />
 
-      {/* Editorial City Scissor Intro Title (Offset cleanly below AHMEDABAD in background) */}
+      {/* Editorial City Scissor Intro Title (Offset cleanly above panoramic photo on mobile, centered on desktop) */}
       <div
-        className="absolute inset-0 flex flex-col items-center justify-center pt-16 sm:pt-28 md:pt-36 lg:pt-40 pointer-events-none z-30 transition-all duration-300 px-4 sm:px-6 text-center"
+        className="absolute inset-0 flex flex-col items-center justify-start pt-14 xs:pt-18 sm:justify-center sm:pt-28 md:pt-36 lg:pt-40 pointer-events-none z-30 transition-all duration-300 px-4 sm:px-6 text-center"
         style={{
           opacity: Math.max(0, 1 - displayProgress * 12),
           transform: `scale(${1 - displayProgress * 0.15}) translateY(-${displayProgress * 40}px)`,
