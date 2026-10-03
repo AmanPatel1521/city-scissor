@@ -30,41 +30,6 @@ A cinematic, immersive web experience built for **City Scissor Unisex Salon**, l
 
 ---
 
-## 🚀 Getting Started
-
-### Prerequisites
-
-- Node.js (v18 or higher recommended)
-- npm or yarn
-
-### Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/AmanPatel1521/city-scissor.git
-
-# Navigate into the project directory
-cd city-scissor
-
-# Install dependencies
-npm install
-
-# Start the local development server
-npm run dev
-```
-
-Visit `http://localhost:5173` to explore the experience locally.
-
-### Production Build
-
-```bash
-npm run build
-```
-
-Build outputs are optimized and code-split into vendor chunks in the `dist/` directory.
-
----
-
 ## 📍 Location
 
 **City Scissor Unisex Salon**  
@@ -75,4 +40,4 @@ Ambawadi, Ahmedabad, Gujarat 380006
 
 ## 📄 License
 
-Private repository & portfolio showcase for City Scissor Unisex Salon.
+Private repository & portfolio showcase for City Scissor Unisex Salon. All rights reserved.
