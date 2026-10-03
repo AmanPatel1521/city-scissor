@@ -381,9 +381,9 @@ export default function PreHeroCutComb({ onIntroProgress, onIntroComplete }) {
         }}
       />
 
-      {/* Editorial City Scissor Intro Title (Offset cleanly above panoramic photo on mobile, centered on desktop) */}
+      {/* Editorial City Scissor Intro Title (Positioned in the middle of the page below AHMEDABAD text) */}
       <div
-        className="absolute inset-0 flex flex-col items-center justify-start pt-14 xs:pt-18 sm:justify-center sm:pt-28 md:pt-36 lg:pt-40 pointer-events-none z-30 transition-all duration-300 px-4 sm:px-6 text-center"
+        className="absolute inset-0 flex flex-col items-center justify-center pt-28 xs:pt-32 sm:pt-28 md:pt-36 lg:pt-40 pointer-events-none z-30 transition-all duration-300 px-4 sm:px-6 text-center"
         style={{
           opacity: Math.max(0, 1 - displayProgress * 12),
           transform: `scale(${1 - displayProgress * 0.15}) translateY(-${displayProgress * 40}px)`,
