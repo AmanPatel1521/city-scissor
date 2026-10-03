@@ -339,27 +339,15 @@ export default function PreHeroCutComb({ onIntroProgress, onIntroComplete }) {
           clipPath: 'polygon(0 0, 50% 0, 50% 100%, 0 100%)',
         }}
       >
-        {/* Soft atmospheric blurred backdrop filling mobile vertical aspect */}
-        <div className="absolute inset-0 w-full h-full sm:hidden pointer-events-none select-none overflow-hidden" aria-hidden="true">
+        <picture className="absolute inset-0 w-full h-full pointer-events-none select-none">
+          <source media="(max-width: 767px)" srcSet="/images/Ahmedabad_City_Mobile.jpg" />
           <img
             src="/images/Ahmedabad_City.jpg"
-            alt=""
-            className="w-full h-full object-cover object-center blur-3xl opacity-50 scale-125"
+            alt="Ahmedabad City"
+            className="w-full h-full object-cover object-center pointer-events-none select-none"
           />
-          <div className="absolute inset-0 bg-[#070709]/75" />
-        </div>
-
-        {/* Full crisp Ahmedabad City photo */}
-        <img
-          src="/images/Ahmedabad_City.jpg"
-          alt="Ahmedabad City"
-          className="absolute inset-0 w-full h-full object-contain sm:object-cover object-center pointer-events-none select-none"
-          style={{
-            maskImage: 'linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%)',
-            WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%)',
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent" />
+        </picture>
+        <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-black/15 to-transparent sm:from-black/75 sm:via-black/35" />
         <div className="absolute left-[50%] -translate-x-full top-0 bottom-0 w-[2px] bg-gradient-to-b from-transparent via-[#D4AF37] to-transparent shadow-[0_0_25px_#D4AF37]" />
       </div>
 
@@ -371,27 +359,15 @@ export default function PreHeroCutComb({ onIntroProgress, onIntroComplete }) {
           clipPath: 'polygon(50% 0, 100% 0, 100% 100%, 50% 100%)',
         }}
       >
-        {/* Soft atmospheric blurred backdrop filling mobile vertical aspect */}
-        <div className="absolute inset-0 w-full h-full sm:hidden pointer-events-none select-none overflow-hidden" aria-hidden="true">
+        <picture className="absolute inset-0 w-full h-full pointer-events-none select-none">
+          <source media="(max-width: 767px)" srcSet="/images/Ahmedabad_City_Mobile.jpg" />
           <img
             src="/images/Ahmedabad_City.jpg"
-            alt=""
-            className="w-full h-full object-cover object-center blur-3xl opacity-50 scale-125"
+            alt="Ahmedabad City"
+            className="w-full h-full object-cover object-center pointer-events-none select-none"
           />
-          <div className="absolute inset-0 bg-[#070709]/75" />
-        </div>
-
-        {/* Full crisp Ahmedabad City photo */}
-        <img
-          src="/images/Ahmedabad_City.jpg"
-          alt="Ahmedabad City"
-          className="absolute inset-0 w-full h-full object-contain sm:object-cover object-center pointer-events-none select-none"
-          style={{
-            maskImage: 'linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%)',
-            WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%)',
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-l from-black/70 via-black/30 to-transparent" />
+        </picture>
+        <div className="absolute inset-0 bg-gradient-to-l from-black/40 via-black/15 to-transparent sm:from-black/75 sm:via-black/35" />
         <div className="absolute left-[50%] top-0 bottom-0 w-[2px] bg-gradient-to-b from-transparent via-[#D4AF37] to-transparent shadow-[0_0_25px_#D4AF37]" />
       </div>
 
