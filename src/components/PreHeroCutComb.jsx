@@ -33,6 +33,7 @@ export default function PreHeroCutComb({ onIntroProgress, onIntroComplete }) {
   const currentProgressRef = useRef(0);
   const lastDisplayProgressRef = useRef(0);
   const hasCompletedRef = useRef(false);
+  const isOpeningRef = useRef(false);
 
   const hasTriggeredSnipSoundRef = useRef(false);
 
@@ -46,14 +47,15 @@ export default function PreHeroCutComb({ onIntroProgress, onIntroComplete }) {
     const setupWebGL = () => {
       if (isDisposed || !canvasRef.current) return;
 
-      const width = window.innerWidth;
-      const height = window.innerHeight;
+      try {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
 
-      // 1. Scene & Camera & Audio Auto-Init
-      audioManager.init();
+        // 1. Scene & Camera & Audio Auto-Init
+        audioManager.init();
 
-    const scene = new THREE.Scene();
-    sceneRef.current = scene;
+        const scene = new THREE.Scene();
+        sceneRef.current = scene;
 
     const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
     camera.position.set(0, 0, isMobile ? 11.5 : 8.2);
@@ -223,19 +225,24 @@ export default function PreHeroCutComb({ onIntroProgress, onIntroComplete }) {
       renderer.render(scene, camera);
     };
 
-      cleanupFn = () => {
-        cancelAnimationFrame(animFrameRef.current);
-        window.removeEventListener('mousemove', handleMouseMove);
-        window.removeEventListener('resize', handleResize);
-        envMap.dispose();
-        scene.traverse((object) => {
-          object.geometry?.dispose?.();
-          const materials = Array.isArray(object.material) ? object.material : [object.material];
-          materials.forEach((material) => material?.dispose?.());
-        });
-        renderer.dispose();
-      };
+    animate();
+
+    cleanupFn = () => {
+      cancelAnimationFrame(animFrameRef.current);
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('resize', handleResize);
+      envMap.dispose();
+      scene.traverse((object) => {
+        object.geometry?.dispose?.();
+        const materials = Array.isArray(object.material) ? object.material : [object.material];
+        materials.forEach((material) => material?.dispose?.());
+      });
+      renderer.dispose();
     };
+  } catch (err) {
+    console.warn('WebGL initialization skipped/failed:', err);
+  }
+};
 
     const timer = setTimeout(setupWebGL, isMobile ? 60 : 0);
 
@@ -312,9 +319,42 @@ export default function PreHeroCutComb({ onIntroProgress, onIntroComplete }) {
 
   // Smooth trigger on clicking the text, button, or screen
   const handleInstantOpen = () => {
-    if (hasCompletedRef.current) return;
-    audioManager.playScissorSnip(1.1);
+    if (hasCompletedRef.current || isOpeningRef.current) return;
+    isOpeningRef.current = true;
+
+    try {
+      audioManager.playScissorSnip(1.1);
+    } catch (err) {}
+
     targetProgressRef.current = 1.0;
+
+    let startTime = null;
+    const duration = 650;
+    const startProgress = currentProgressRef.current;
+
+    const step = (timestamp) => {
+      if (!startTime) startTime = timestamp;
+      const elapsed = timestamp - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // Ease out cubic for butter-smooth curtain split
+      const ease = 1 - Math.pow(1 - progress, 3);
+      const val = startProgress + (1.0 - startProgress) * ease;
+
+      currentProgressRef.current = val;
+      setDisplayProgress(val);
+      onIntroProgress?.(val);
+
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        hasCompletedRef.current = true;
+        setDisplayProgress(1);
+        setIsCompleted(true);
+        onIntroProgress?.(1);
+        onIntroComplete?.();
+      }
+    };
+    requestAnimationFrame(step);
   };
 
   if (isUnmounted) return null;
@@ -360,7 +400,7 @@ export default function PreHeroCutComb({ onIntroProgress, onIntroComplete }) {
             src="/images/Ahmedabad_City.jpg"
             alt="Ahmedabad City"
             decoding="async"
-            fetchPriority="high"
+            fetchpriority="high"
             className="w-full h-full object-cover object-center pointer-events-none select-none"
           />
         </picture>
@@ -384,7 +424,7 @@ export default function PreHeroCutComb({ onIntroProgress, onIntroComplete }) {
             src="/images/Ahmedabad_City.jpg"
             alt="Ahmedabad City"
             decoding="async"
-            fetchPriority="high"
+            fetchpriority="high"
             className="w-full h-full object-cover object-center pointer-events-none select-none"
           />
         </picture>
