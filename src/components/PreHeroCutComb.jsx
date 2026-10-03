@@ -12,11 +12,10 @@ import { audioManager } from '../utils/audioManager';
 import { Scissors } from 'lucide-react';
 
 export default function PreHeroCutComb({ onIntroProgress, onIntroComplete }) {
-  const isMobileInitial = typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches;
   const canvasRef = useRef(null);
-  const [displayProgress, setDisplayProgress] = useState(isMobileInitial ? 1 : 0); // 0 to 1 (Cut phase)
-  const [isCompleted, setIsCompleted] = useState(isMobileInitial);
-  const [isUnmounted, setIsUnmounted] = useState(isMobileInitial);
+  const [displayProgress, setDisplayProgress] = useState(0); // 0 to 1 (Cut phase)
+  const [isCompleted, setIsCompleted] = useState(false);
+  const [isUnmounted, setIsUnmounted] = useState(false);
 
   const sceneRef = useRef(null);
   const rendererRef = useRef(null);
@@ -38,11 +37,6 @@ export default function PreHeroCutComb({ onIntroProgress, onIntroComplete }) {
   const hasTriggeredSnipSoundRef = useRef(false);
 
   useEffect(() => {
-    if (isMobileInitial) {
-      onIntroProgress?.(1);
-      onIntroComplete?.();
-      return;
-    }
     if (!canvasRef.current) return;
 
     const width = window.innerWidth;
@@ -264,14 +258,20 @@ export default function PreHeroCutComb({ onIntroProgress, onIntroComplete }) {
 
     let startTouchY = 0;
     const handleTouchStart = (e) => {
-      startTouchY = e.touches[0].clientY;
+      if (e.touches && e.touches[0]) {
+        startTouchY = e.touches[0].clientY;
+      }
     };
     const handleTouchMove = (e) => {
       if (hasCompletedRef.current) return;
+      if (!e.touches || !e.touches[0]) return;
       const currentTouchY = e.touches[0].clientY;
       const deltaY = startTouchY - currentTouchY;
-      if (deltaY > 0) {
-        targetProgressRef.current = Math.min(1.0, targetProgressRef.current + deltaY * 0.004);
+      if (deltaY > 12) {
+        targetProgressRef.current = Math.min(1.0, targetProgressRef.current + deltaY * 0.008);
+        if (targetProgressRef.current > 0.12) {
+          targetProgressRef.current = 1.0;
+        }
         startTouchY = currentTouchY;
       }
     };
@@ -304,14 +304,18 @@ export default function PreHeroCutComb({ onIntroProgress, onIntroComplete }) {
     targetProgressRef.current = 1.0;
   };
 
-  if (isMobileInitial || isUnmounted) return null;
+  if (isUnmounted) return null;
 
   const isFullyOpen = displayProgress >= 0.95 || isCompleted;
 
   return (
     <div
       onClick={handleInstantOpen}
-      className="fixed inset-0 z-50 h-[100svh] w-screen overflow-hidden select-none bg-[#070709] transition-opacity duration-700 cursor-pointer"
+      onTouchEnd={(e) => {
+        // Tap anywhere on mobile opens the curtain
+        handleInstantOpen();
+      }}
+      className="fixed inset-0 z-50 h-[100svh] w-screen overflow-hidden select-none bg-[#070709] transition-opacity duration-700 cursor-pointer touch-none"
       style={{
         pointerEvents: isFullyOpen ? 'none' : 'auto',
         opacity: isFullyOpen ? 0 : 1,
@@ -422,11 +426,19 @@ export default function PreHeroCutComb({ onIntroProgress, onIntroComplete }) {
             e.stopPropagation();
             handleInstantOpen();
           }}
-          className="btn-gold pill-large w-full max-w-[260px] sm:max-w-none font-bold tracking-[0.15em] uppercase flex items-center justify-center gap-3 shadow-[0_0_40px_rgba(212,175,55,0.5)] hover:scale-105 transition-transform cursor-pointer overflow-hidden"
+          onTouchEnd={(e) => {
+            e.stopPropagation();
+            handleInstantOpen();
+          }}
+          className="btn-gold pill-large w-full max-w-[260px] sm:max-w-none font-bold tracking-[0.15em] uppercase flex items-center justify-center gap-3 shadow-[0_0_40px_rgba(212,175,55,0.5)] hover:scale-105 active:scale-95 transition-transform cursor-pointer overflow-hidden touch-manipulation"
         >
           <Scissors className="w-4 h-4 text-black shrink-0" />
           <span>ENTER SALON</span>
         </button>
+
+        <p className="text-[10px] sm:text-xs text-[#E6CA65]/80 tracking-[0.2em] uppercase font-mono">
+          Tap or swipe to enter
+        </p>
       </div>
 
     </div>

@@ -80,22 +80,24 @@ export default function HeroSection({ onOpenBooking, onExploreServices }) {
   const word2 = "SCISSOR";
 
   return (
-    <section ref={container} className="w-full relative min-h-screen flex flex-col items-center justify-center  px-4 sm:px-6 lg:px-8 text-center overflow-hidden">
+    <section ref={container} className="w-full relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 text-center">
       
-      {/* Background Soft Atmospheric Radial Glow */}
-      <div ref={bg1Ref} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[#D4AF37]/8 rounded-full blur-[180px] pointer-events-none" />
-      <div ref={bg2Ref} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#C98993]/6 rounded-full blur-[160px] pointer-events-none" />
+      {/* Background Soft Atmospheric Radial Glow Container */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div ref={bg1Ref} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[#D4AF37]/8 rounded-full blur-[180px]" />
+        <div ref={bg2Ref} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#C98993]/6 rounded-full blur-[160px]" />
 
-      {/* Grid Overlay matching original */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-40"
-        style={{
-          backgroundImage: 'linear-gradient(rgba(244,226,149,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(244,226,149,0.05) 1px, transparent 1px)',
-          backgroundSize: '96px 96px',
-          maskImage: 'linear-gradient(to bottom, transparent, black 24%, black 76%, transparent)',
-        }}
-      />
-      <div className="absolute inset-x-0 top-[22%] h-px bg-[#D4AF37]/30 pointer-events-none" />
+        {/* Grid Overlay matching original */}
+        <div
+          className="absolute inset-0 opacity-40"
+          style={{
+            backgroundImage: 'linear-gradient(rgba(244,226,149,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(244,226,149,0.05) 1px, transparent 1px)',
+            backgroundSize: '96px 96px',
+            maskImage: 'linear-gradient(to bottom, transparent, black 24%, black 76%, transparent)',
+          }}
+        />
+        <div className="absolute inset-x-0 top-[22%] h-px bg-[#D4AF37]/30" />
+      </div>
 
       {/* Main Content: Dead-Center in the Screen */}
       <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center justify-center text-center my-auto w-full">

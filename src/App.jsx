@@ -15,10 +15,9 @@ import MobileBottomBar from './components/MobileBottomBar';
 import { audioManager } from './utils/audioManager';
 
 export default function App() {
-  const isMobileDevice = typeof window !== 'undefined' && window.innerWidth < 768;
-  const [introProgress, setIntroProgress] = useState(isMobileDevice ? 1 : 0);
+  const [introProgress, setIntroProgress] = useState(0);
   const [heroDwellProgress, setHeroDwellProgress] = useState(0);
-  const [isIntroDone, setIsIntroDone] = useState(isMobileDevice);
+  const [isIntroDone, setIsIntroDone] = useState(false);
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [selectedServiceId, setSelectedServiceId] = useState('hc-master-sculpt');
   const [selectedStylistId, setSelectedStylistId] = useState('any');
@@ -56,7 +55,7 @@ export default function App() {
   const isSequenceFinished = introProgress >= 0.95 || isIntroDone;
 
   return (
-    <div className="min-h-screen bg-[#070709] text-[#F8F8FA] selection:bg-[#D4AF37] selection:text-black font-sans relative overflow-x-hidden">
+    <div className="min-h-screen bg-[#070709] text-[#F8F8FA] selection:bg-[#D4AF37] selection:text-black font-sans relative">
       
       {/* 1. Pre-Hero 3D "Cut & Comb" Pure Visual 3D Sequence (Zero Text Clutter) */}
       <PreHeroCutComb
