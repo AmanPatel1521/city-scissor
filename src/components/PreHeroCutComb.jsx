@@ -1,13 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import * as THREE from 'three';
-import {
-  createStudioEnvironment,
-  createScissorMesh,
-  createCombMesh,
-  createClipMesh,
-  createRazorMesh,
-  createParticleDustField,
-} from '../utils/threeHelpers';
 import { audioManager } from '../utils/audioManager';
 import { Scissors } from 'lucide-react';
 
@@ -44,10 +35,26 @@ export default function PreHeroCutComb({ onIntroProgress, onIntroComplete }) {
     let cleanupFn = null;
     const isMobile = window.matchMedia('(max-width: 767px)').matches;
 
-    const setupWebGL = () => {
+    const setupWebGL = async () => {
       if (isDisposed || !canvasRef.current) return;
 
       try {
+        const [THREE, helpers] = await Promise.all([
+          import('three'),
+          import('../utils/threeHelpers'),
+        ]);
+
+        if (isDisposed || !canvasRef.current) return;
+
+        const {
+          createStudioEnvironment,
+          createScissorMesh,
+          createCombMesh,
+          createClipMesh,
+          createRazorMesh,
+          createParticleDustField,
+        } = helpers;
+
         const width = window.innerWidth;
         const height = window.innerHeight;
 
@@ -244,13 +251,20 @@ export default function PreHeroCutComb({ onIntroProgress, onIntroComplete }) {
   }
 };
 
-    const timer = setTimeout(setupWebGL, isMobile ? 60 : 0);
+    const timer = setTimeout(setupWebGL, isMobile ? 350 : 0);
 
     return () => {
       isDisposed = true;
       clearTimeout(timer);
       if (cleanupFn) cleanupFn();
     };
+  }, []);
+
+  // Handle early open if user tapped during initial HTML shell
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.__EARLY_OPEN__) {
+      handleInstantOpen();
+    }
   }, []);
 
   // Smooth wheel & touch interaction to scrub the cut

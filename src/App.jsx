@@ -1,13 +1,13 @@
 import React, { useState, lazy, Suspense } from 'react';
 import PreHeroCutComb from './components/PreHeroCutComb';
-import Navbar from './components/Navbar';
-import HeroSection from './components/HeroSection';
-import TrustMetricsStrip from './components/TrustMetricsStrip';
-import ServicesAtelier from './components/ServicesAtelier';
-import MobileBottomBar from './components/MobileBottomBar';
 import { audioManager } from './utils/audioManager';
 
-// Code-split heavy off-screen sections & on-demand modal
+// Code-split sections for instant initial paint
+const Navbar = lazy(() => import('./components/Navbar'));
+const HeroSection = lazy(() => import('./components/HeroSection'));
+const TrustMetricsStrip = lazy(() => import('./components/TrustMetricsStrip'));
+const ServicesAtelier = lazy(() => import('./components/ServicesAtelier'));
+const MobileBottomBar = lazy(() => import('./components/MobileBottomBar'));
 const StreetViewLocation = lazy(() => import('./components/StreetViewLocation'));
 const LookbookGallery = lazy(() => import('./components/LookbookGallery'));
 const MasterStylists = lazy(() => import('./components/MasterStylists'));
@@ -71,53 +71,57 @@ export default function App() {
       />
 
       {/* 2. Glassmorphic Navigation Bar (Displayed strictly after prehero sequence ends) */}
-      <div
-        className="transition-opacity duration-700 ease-out"
-        style={{
-          opacity: isSequenceFinished ? 1 : 0,
-          pointerEvents: isSequenceFinished ? 'auto' : 'none',
-          visibility: isSequenceFinished ? 'visible' : 'hidden',
-        }}
-      >
-        <Navbar
-          onOpenBooking={() => handleOpenBooking()}
-          isAudioActive={isAudioActive}
-          onToggleAudio={handleToggleAudio}
-        />
-      </div>
+      {shouldMountOffscreen && (
+        <div
+          className="transition-opacity duration-700 ease-out"
+          style={{
+            opacity: isSequenceFinished ? 1 : 0,
+            pointerEvents: isSequenceFinished ? 'auto' : 'none',
+            visibility: isSequenceFinished ? 'visible' : 'hidden',
+          }}
+        >
+          <Suspense fallback={null}>
+            <Navbar
+              onOpenBooking={() => handleOpenBooking()}
+              isAudioActive={isAudioActive}
+              onToggleAudio={handleToggleAudio}
+            />
+          </Suspense>
+        </div>
+      )}
 
       {/* 3. Main Content: Hero Section & Services */}
-      <main
-        className="w-full relative z-10 flex flex-col"
-        style={{
-          pointerEvents: isSequenceFinished ? 'auto' : 'none',
-        }}
-      >
-        <HeroSection
-          onOpenBooking={() => handleOpenBooking()}
-          onExploreServices={handleExploreServices}
-          onExploreLocation={handleExploreLocation}
-        />
+      {shouldMountOffscreen && (
+        <main
+          className="w-full relative z-10 flex flex-col"
+          style={{
+            pointerEvents: isSequenceFinished ? 'auto' : 'none',
+          }}
+        >
+          <Suspense fallback={null}>
+            <HeroSection
+              onOpenBooking={() => handleOpenBooking()}
+              onExploreServices={handleExploreServices}
+              onExploreLocation={handleExploreLocation}
+            />
+            <TrustMetricsStrip />
+          </Suspense>
 
-        {/* Heritage Trust & Metrics Strip */}
-        <TrustMetricsStrip />
-
-        {/* 4. Dedicated Ambawadi Studio Location & Dark City Map */}
-        {shouldMountOffscreen && (
+          {/* 4. Dedicated Ambawadi Studio Location & Dark City Map */}
           <Suspense fallback={<div className="w-full min-h-[300px]" />}>
             <StreetViewLocation />
           </Suspense>
-        )}
 
-        {/* 5. Signature Services Atelier Menu */}
-        <ServicesAtelier
-          onSelectService={(id) => setSelectedServiceId(id)}
-          selectedServiceIds={[selectedServiceId]}
-          onOpenBooking={() => handleOpenBooking(selectedServiceId)}
-        />
+          {/* 5. Signature Services Atelier Menu */}
+          <Suspense fallback={null}>
+            <ServicesAtelier
+              onSelectService={(id) => setSelectedServiceId(id)}
+              selectedServiceIds={[selectedServiceId]}
+              onOpenBooking={() => handleOpenBooking(selectedServiceId)}
+            />
+          </Suspense>
 
-        {/* 6. Interactive Before/After Lookbook Transformations & Media Sections */}
-        {shouldMountOffscreen && (
+          {/* 6. Interactive Before/After Lookbook Transformations & Media Sections */}
           <Suspense fallback={<div className="w-full min-h-[300px]" />}>
             <LookbookGallery onOpenBooking={() => handleOpenBooking()} />
             <MasterStylists
@@ -130,8 +134,8 @@ export default function App() {
             <VIPTourExperience onOpenBooking={() => handleOpenBooking()} />
             <ReviewsPress />
           </Suspense>
-        )}
-      </main>
+        </main>
+      )}
 
       {/* 10. Luxury Footer */}
       {shouldMountOffscreen && (
@@ -151,7 +155,9 @@ export default function App() {
 
       {/* 11. Mobile Sticky Action Bar */}
       {isSequenceFinished && !isBookingOpen && (
-        <MobileBottomBar onOpenBooking={() => handleOpenBooking()} />
+        <Suspense fallback={null}>
+          <MobileBottomBar onOpenBooking={() => handleOpenBooking()} />
+        </Suspense>
       )}
 
       {/* 12. Multi-Step Bespoke Booking Concierge Modal (Loaded on-demand) */}
