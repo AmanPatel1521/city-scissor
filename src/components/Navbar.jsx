@@ -135,13 +135,13 @@ export default function Navbar({ onOpenBooking, isAudioActive, onToggleAudio }) 
             {isAudioActive ? <Volume2 className="w-4 h-4 text-[#D4AF37]" /> : <VolumeX className="w-4 h-4" />}
           </button>
 
-          {/* Reserve Slot Button with Spacious Pill Border & Zero Edge Clipping */}
+          {/* Reserve Slot Button with Spacious Pill Border & Zero Edge Clipping (Desktop & Tablet) */}
           <button
             onClick={() => {
               audioManager.playClick();
               onOpenBooking();
             }}
-            className="btn-gold pill-medium text-xs font-bold tracking-wider uppercase flex items-center gap-2.5 cursor-pointer shrink-0 shadow-[0_0_20px_rgba(212,175,55,0.35)] hover:scale-105 transition-transform whitespace-nowrap overflow-hidden"
+            className="hidden sm:inline-flex btn-gold pill-medium text-xs font-bold tracking-wider uppercase items-center gap-2.5 cursor-pointer shrink-0 shadow-[0_0_20px_rgba(212,175,55,0.35)] hover:scale-105 transition-transform whitespace-nowrap overflow-hidden"
           >
             <Calendar className="w-4 h-4 text-black shrink-0" />
             <span>RESERVE SLOT</span>
@@ -179,7 +179,7 @@ export default function Navbar({ onOpenBooking, isAudioActive, onToggleAudio }) 
             ))}
           </nav>
 
-          <div className="pt-2 flex flex-col gap-3">
+          <div className="pt-2 flex flex-col gap-2.5">
             <button
               onClick={() => {
                 setIsMobileMenuOpen(false);
@@ -190,6 +190,14 @@ export default function Navbar({ onOpenBooking, isAudioActive, onToggleAudio }) 
               <Calendar className="w-4 h-4 text-black" />
               <span>RESERVE SLOT</span>
             </button>
+
+            <a
+              href="tel:+917948921100"
+              className="w-full py-2.5 rounded-full text-xs font-semibold tracking-wider uppercase flex items-center justify-center gap-2 border border-[#D4AF37]/35 text-[#F4E295] bg-[#D4AF37]/10"
+            >
+              <Phone className="w-3.5 h-3.5" />
+              <span>Call Concierge (+91 79 4892 1100)</span>
+            </a>
           </div>
         </div>
       )}

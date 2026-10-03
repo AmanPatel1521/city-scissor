@@ -16,15 +16,15 @@ export default function VIPTourExperience({ onOpenBooking }) {
   const rightRef = useGSAPReveal('right', 0);
 
   return (
-    <section id="vip-experience" className="w-full py-24 lg:py-32 px-5 sm:px-10 lg:px-16" style={{ background: '#0a0a0f', borderTop: '1px solid rgba(212,175,55,0.12)' }}>
+    <section id="vip-experience" className="w-full py-16 sm:py-24 lg:py-32 px-4 sm:px-10 lg:px-16" style={{ background: '#0a0a0f', borderTop: '1px solid rgba(212,175,55,0.12)' }}>
 
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-24 items-start">
 
           {/* Left: Images */}
           <div ref={leftRef} className="reveal reveal-left">
             {/* Main image */}
-            <div className="rounded-2xl overflow-hidden relative" style={{ height: '440px', background: '#111116', border: '1px solid rgba(212,175,55,0.18)', boxShadow: '0 20px 60px rgba(0,0,0,0.6)' }}>
+            <div className="rounded-2xl overflow-hidden relative h-[280px] xs:h-[340px] sm:h-[440px]" style={{ background: '#111116', border: '1px solid rgba(212,175,55,0.18)', boxShadow: '0 20px 60px rgba(0,0,0,0.6)' }}>
               <img
                 src="https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?auto=format&fit=crop&w=1200&q=80"
                 alt="City Scissor VIP Suite Interior"
@@ -44,62 +44,62 @@ export default function VIPTourExperience({ onOpenBooking }) {
               </div>
 
               {/* Bottom caption */}
-              <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between p-3.5 rounded-xl" style={{ background: 'rgba(7,7,9,0.92)', border: '1px solid rgba(212,175,55,0.18)', backdropFilter: 'blur(12px)' }}>
+              <div className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 flex items-center justify-between p-3 sm:p-3.5 rounded-xl" style={{ background: 'rgba(7,7,9,0.92)', border: '1px solid rgba(212,175,55,0.18)', backdropFilter: 'blur(12px)' }}>
                 <div>
-                  <p className="font-cinzel text-sm font-bold text-white leading-snug">Ambawadi Flagship Atelier</p>
-                  <p className="text-[10px] font-mono" style={{ color: '#9C9EA9' }}>Scandinavian &amp; Japanese Luxury</p>
+                  <p className="font-cinzel text-xs sm:text-sm font-bold text-white leading-snug">Ambawadi Flagship Atelier</p>
+                  <p className="text-[9px] sm:text-[10px] font-mono" style={{ color: '#9C9EA9' }}>Scandinavian &amp; Japanese Luxury</p>
                 </div>
-                <span className="px-2.5 py-1 rounded-full text-[9px] font-bold font-mono uppercase tracking-wider flex-shrink-0" style={{ background: 'rgba(212,175,55,0.18)', border: '1px solid rgba(212,175,55,0.35)', color: '#F4E295' }}>
+                <span className="px-2.5 py-1 rounded-full text-[8.5px] sm:text-[9px] font-bold font-mono uppercase tracking-wider flex-shrink-0" style={{ background: 'rgba(212,175,55,0.18)', border: '1px solid rgba(212,175,55,0.35)', color: '#F4E295' }}>
                   VIP Level
                 </span>
               </div>
             </div>
 
             {/* Espresso accent card */}
-            <div className="mt-3 rounded-xl overflow-hidden relative" style={{ height: '100px', border: '1px solid rgba(212,175,55,0.15)' }}>
+            <div className="mt-3 rounded-xl overflow-hidden relative" style={{ height: '90px', border: '1px solid rgba(212,175,55,0.15)' }}>
               <img
                 src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=80"
                 alt="Artisan espresso bar"
                 className="w-full h-full object-cover"
                 style={{ filter: 'brightness(0.6)' }}
               />
-              <div className="absolute inset-0 flex items-center px-5" style={{ background: 'linear-gradient(to right, rgba(7,7,9,0.85) 0%, transparent 70%)' }}>
+              <div className="absolute inset-0 flex items-center px-4 sm:px-5" style={{ background: 'linear-gradient(to right, rgba(7,7,9,0.85) 0%, transparent 70%)' }}>
                 <div>
                   <p className="text-[9px] font-mono uppercase tracking-wider mb-0.5" style={{ color: '#D4AF37' }}>Included with VIP Suite</p>
-                  <p className="font-cinzel text-sm font-bold text-white">Artisan Espresso Bar</p>
+                  <p className="font-cinzel text-xs sm:text-sm font-bold text-white">Artisan Espresso Bar</p>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Right: Amenities */}
-          <div ref={rightRef} className="reveal reveal-right flex flex-col gap-8">
+          <div ref={rightRef} className="reveal reveal-right flex flex-col gap-6 sm:gap-8">
 
             {/* Header */}
             <div>
-              <p className="text-[9px] uppercase tracking-[0.4em] font-mono font-semibold mb-4" style={{ color: '#D4AF37' }}>
+              <p className="text-[9px] uppercase tracking-[0.4em] font-mono font-semibold mb-3 sm:mb-4" style={{ color: '#D4AF37' }}>
                 The Atelier Environment
               </p>
-              <div className="pl-4 mb-4" style={{ borderLeft: '2px solid rgba(212,175,55,0.45)' }}>
+              <div className="pl-4 mb-3 sm:mb-4" style={{ borderLeft: '2px solid rgba(212,175,55,0.45)' }}>
                 <h2 className="font-cinzel text-2xl sm:text-3xl font-bold text-white leading-tight">
                   Beyond a Salon —<br />
                   <span className="gold-gradient-text">A Multi-Sensory Sanctuary</span>
                 </h2>
               </div>
-              <p className="text-[13px] leading-relaxed" style={{ color: '#8a8c98' }}>
+              <p className="text-xs sm:text-[13px] leading-relaxed" style={{ color: '#8a8c98' }}>
                 Designed for those who view personal grooming as an essential lifestyle investment.
                 Every corner of our Ambawadi atelier space is calibrated for tranquil privacy and precision results.
               </p>
             </div>
 
             {/* Amenity cards — 2x2 grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8">
               {amenities.map((item, i) => {
                 const Icon = item.icon;
                 return (
                   <div
                     key={i}
-                    className="flex flex-col gap-4 p-8 rounded-2xl transition-all duration-200 group"
+                    className="flex flex-col gap-3 sm:gap-4 p-5 sm:p-8 rounded-2xl transition-all duration-200 group"
                     style={{ background: '#111118', border: '1px solid rgba(255,255,255,0.06)' }}
                     onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(212,175,55,0.28)'}
                     onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)'}
@@ -108,7 +108,7 @@ export default function VIPTourExperience({ onOpenBooking }) {
                       <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: '#1c1c28', border: '1px solid rgba(255,255,255,0.06)' }}>
                         <Icon className="w-4 h-4" style={{ color: '#D4AF37' }} />
                       </div>
-                      <span className="font-cinzel font-bold leading-none select-none" style={{ fontSize: '26px', color: 'rgba(212,175,55,0.07)' }}>
+                      <span className="font-cinzel font-bold leading-none select-none" style={{ fontSize: '24px', color: 'rgba(212,175,55,0.07)' }}>
                         {String(i + 1).padStart(2, '0')}
                       </span>
                     </div>
@@ -124,7 +124,7 @@ export default function VIPTourExperience({ onOpenBooking }) {
             </div>
 
             {/* Silent appointment */}
-            <div className="flex items-start gap-8 p-5 rounded-xl text-[13px]" style={{ background: '#111118', border: '1px solid rgba(255,255,255,0.05)' }}>
+            <div className="flex items-start gap-3 sm:gap-4 p-4 sm:p-5 rounded-xl text-xs sm:text-[13px]" style={{ background: '#111118', border: '1px solid rgba(255,255,255,0.05)' }}>
               <CheckCircle className="w-4 h-4 flex-shrink-0 mt-0.5" style={{ color: '#D4AF37' }} />
               <p className="leading-relaxed" style={{ color: '#b0b2be' }}>
                 <strong className="text-white font-semibold">&ldquo;Silent Appointment&rdquo; Option — </strong>
@@ -135,7 +135,7 @@ export default function VIPTourExperience({ onOpenBooking }) {
             {/* CTA */}
             <button
               onClick={() => { audioManager.playScissorSnip(); onOpenBooking?.(); }}
-              className="btn-gold self-start flex items-center gap-2.5 px-8 py-3 rounded-full text-[11px] font-bold uppercase tracking-widest cursor-pointer"
+              className="btn-gold w-full sm:w-auto self-start flex items-center justify-center gap-2.5 px-8 py-3 rounded-full text-[11px] font-bold uppercase tracking-widest cursor-pointer"
             >
               Reserve VIP Suite
               <ArrowRight className="w-3.5 h-3.5" />

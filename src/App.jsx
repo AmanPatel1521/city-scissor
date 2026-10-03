@@ -11,6 +11,7 @@ import VIPTourExperience from './components/VIPTourExperience';
 import ReviewsPress from './components/ReviewsPress';
 import Footer from './components/Footer';
 import BookingConcierge from './components/BookingConcierge';
+import MobileBottomBar from './components/MobileBottomBar';
 import { audioManager } from './utils/audioManager';
 
 export default function App() {
@@ -140,7 +141,12 @@ export default function App() {
         <Footer onOpenBooking={() => handleOpenBooking()} />
       </div>
 
-      {/* 11. Multi-Step Bespoke Booking Concierge Modal */}
+      {/* 11. Mobile Sticky Action Bar */}
+      {isSequenceFinished && !isBookingOpen && (
+        <MobileBottomBar onOpenBooking={() => handleOpenBooking()} />
+      )}
+
+      {/* 12. Multi-Step Bespoke Booking Concierge Modal */}
       <BookingConcierge
         isOpen={isBookingOpen}
         onClose={() => setIsBookingOpen(false)}

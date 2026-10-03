@@ -79,7 +79,7 @@ function StylistCard({ stylist, delay = 0, onSelectStylist }) {
         </div>
 
         {/* Body */}
-        <div className="p-8 flex flex-col gap-8 flex-1">
+        <div className="p-5 sm:p-8 flex flex-col gap-4 sm:gap-6 flex-1">
           {/* Specialty tags */}
           <div className="flex flex-wrap gap-1.5">
             {stylist.specialties.slice(0, 2).map((spec, i) => (
@@ -90,7 +90,7 @@ function StylistCard({ stylist, delay = 0, onSelectStylist }) {
           </div>
 
           {/* Signature */}
-          <p className="text-[13px] leading-relaxed" style={{ color: '#8a8c98' }}>
+          <p className="text-xs sm:text-[13px] leading-relaxed" style={{ color: '#8a8c98' }}>
             <span style={{ color: '#5a5c6a' }}>Signature — </span>
             <span style={{ color: '#b0b2be' }}>{stylist.signature}</span>
           </p>
@@ -126,7 +126,7 @@ export default function MasterStylists({ onSelectStylist, onOpenBooking }) {
   }, []);
 
   return (
-    <section id="stylists" className="w-full relative py-24 lg:py-32 px-5 sm:px-10 lg:px-16" style={{ background: '#070709', borderTop: '1px solid rgba(212,175,55,0.12)' }}>
+    <section id="stylists" className="w-full relative py-16 sm:py-24 lg:py-32 px-4 sm:px-10 lg:px-16" style={{ background: '#070709', borderTop: '1px solid rgba(212,175,55,0.12)' }}>
       <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full" style={{ background: 'radial-gradient(circle, rgba(201,137,147,0.02) 0%, transparent 70%)' }} />
       </div>
@@ -134,8 +134,8 @@ export default function MasterStylists({ onSelectStylist, onOpenBooking }) {
       <div className="max-w-7xl mx-auto relative z-10">
 
         {/* Header */}
-        <div ref={headerRef} className="reveal flex flex-col items-center text-center mb-16">
-          <p className="text-[10px] uppercase tracking-[0.4em] font-mono font-semibold mb-3" style={{ color: '#D4AF37' }}>
+        <div ref={headerRef} className="reveal flex flex-col items-center text-center mb-10 sm:mb-16">
+          <p className="text-[10px] uppercase tracking-[0.35em] sm:tracking-[0.4em] font-mono font-semibold mb-2.5 sm:mb-3" style={{ color: '#D4AF37' }}>
             Master Craftsmen
           </p>
           <h2 className="font-cinzel text-3xl sm:text-4xl lg:text-[44px] font-bold text-white mb-3">

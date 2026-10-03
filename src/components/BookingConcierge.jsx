@@ -148,17 +148,17 @@ END:VCALENDAR`;
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-2xl overflow-y-auto">
       
       {/* 2-Panel Haute Luxury Modal Shell */}
-      <div className="relative w-full max-w-5xl rounded-3xl bg-[#0c0c12] border border-[#D4AF37]/45 shadow-[0_30px_100px_rgba(0,0,0,0.98)] overflow-hidden my-auto flex flex-col max-h-[92vh]">
+      <div className="relative w-full max-w-5xl rounded-2xl sm:rounded-3xl bg-[#0c0c12] border border-[#D4AF37]/45 shadow-[0_30px_100px_rgba(0,0,0,0.98)] overflow-hidden my-auto flex flex-col max-h-[96vh] sm:max-h-[92vh]">
         
         {/* 1. Header Bar */}
-        <div className="px-6 sm:px-8 py-5 bg-[#12121a] border-b border-[#D4AF37]/25 flex items-center justify-between shrink-0">
-          <div className="flex items-center gap-3.5">
-            <CityScissorLogo className="w-9 h-9" glow={false} />
+        <div className="px-5 sm:px-8 py-4 sm:py-5 bg-[#12121a] border-b border-[#D4AF37]/25 flex items-center justify-between shrink-0">
+          <div className="flex items-center gap-3 sm:gap-3.5">
+            <CityScissorLogo className="w-8 h-8 sm:w-9 sm:h-9" glow={false} />
             <div>
-              <h3 className="font-cinzel text-base sm:text-lg font-bold text-white tracking-wide">
+              <h3 className="font-cinzel text-sm sm:text-lg font-bold text-white tracking-wide">
                 Bespoke Booking Concierge
               </h3>
-              <span className="text-xs text-[#E6CA65] font-mono">
+              <span className="text-[11px] sm:text-xs text-[#E6CA65] font-mono">
                 Opp. BRTS • Ambawadi Atelier
               </span>
             </div>
@@ -191,19 +191,38 @@ END:VCALENDAR`;
               audioManager.playClick();
               onClose();
             }}
-            className="w-10 h-10 rounded-full bg-white/5 hover:bg-white/15 border border-white/10 text-[#C0C2C9] hover:text-white flex items-center justify-center transition-all cursor-pointer"
+            className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/5 hover:bg-white/15 border border-white/10 text-[#C0C2C9] hover:text-white flex items-center justify-center transition-all cursor-pointer"
             aria-label="Close Concierge"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
+        {/* Mobile Step Header with Progress Track */}
+        {step < 5 && (
+          <div className="md:hidden px-4 py-2.5 bg-[#0e0e16] border-b border-white/5 flex flex-col gap-1.5 shrink-0">
+            <div className="flex items-center justify-between text-[11px] font-mono">
+              <span className="text-[#D4AF37] font-bold">Step {step} of 4</span>
+              <span className="text-[#C0C2C9]">
+                {step === 1 ? 'Rituals' : step === 2 ? 'Artist' : step === 3 ? 'Schedule' : 'Details'}
+              </span>
+            </div>
+            <div className="w-full h-1 bg-[#1a1a24] rounded-full overflow-hidden">
+              <div
+                className="h-full bg-gradient-to-r from-[#D4AF37] to-[#F4E295] transition-all duration-300"
+                style={{ width: `${(step / 4) * 100}%` }}
+              />
+            </div>
+          </div>
+        )}
+
         {/* 2. Main Two-Column Workspace */}
         {step < 5 ? (
-          <div className="grid grid-cols-1 lg:grid-cols-12 overflow-y-auto flex-1 divide-y lg:divide-y-0 lg:divide-x divide-[#D4AF37]/20">
-            
-            {/* LEFT COLUMN: Interactive Step Configurator (7 Cols) */}
-            <div className="lg:col-span-7 p-6 sm:p-8 space-y-6 overflow-y-auto max-h-[62vh] lg:max-h-[72vh]">
+          <div className="flex flex-col flex-1 overflow-hidden">
+            <div className="grid grid-cols-1 lg:grid-cols-12 overflow-y-auto flex-1 divide-y lg:divide-y-0 lg:divide-x divide-[#D4AF37]/20">
+              
+              {/* LEFT COLUMN: Interactive Step Configurator (7 Cols) */}
+              <div className="lg:col-span-7 p-4 sm:p-8 space-y-5 sm:space-y-6 overflow-y-auto max-h-[58vh] sm:max-h-[62vh] lg:max-h-[72vh]">
               
               {/* STEP 1: Select Rituals / Services */}
               {step === 1 && (
@@ -606,8 +625,8 @@ END:VCALENDAR`;
                 </div>
               </div>
 
-              {/* Action Buttons */}
-              <div className="space-y-3 pt-4">
+              {/* Action Buttons (Desktop) */}
+              <div className="space-y-3 pt-4 hidden lg:block">
                 {step < 4 ? (
                   <button
                     onClick={() => {
@@ -648,24 +667,68 @@ END:VCALENDAR`;
             </div>
 
           </div>
+
+          {/* Mobile Sticky Footer Action Bar (Fixed at bottom on phones) */}
+          <div className="lg:hidden px-4 py-3 bg-[#101018]/98 border-t border-[#D4AF37]/30 flex items-center justify-between gap-3 shrink-0 z-20 backdrop-blur-lg">
+            <div className="flex flex-col">
+              <span className="text-[9px] uppercase font-mono text-[#9C9EA9]">Estimated Total</span>
+              <span className="font-cinzel text-base font-bold text-[#F4E295]">
+                ₹{totalPrice.toLocaleString('en-IN')}
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              {step > 1 && (
+                <button
+                  onClick={() => {
+                    audioManager.playClick();
+                    setStep(step - 1);
+                  }}
+                  className="px-3.5 py-2 rounded-full border border-white/20 text-xs font-mono text-[#C0C2C9] hover:text-white"
+                >
+                  Back
+                </button>
+              )}
+              {step < 4 ? (
+                <button
+                  onClick={() => {
+                    audioManager.playClick();
+                    setStep(step + 1);
+                  }}
+                  className="btn-gold px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-[0_0_15px_rgba(212,175,55,0.3)]"
+                >
+                  <span>{step === 1 ? 'Artist' : step === 2 ? 'Schedule' : 'Details'}</span>
+                  <ChevronRight className="w-3.5 h-3.5 text-black" />
+                </button>
+              ) : (
+                <button
+                  onClick={handleFinalizeBooking}
+                  className="btn-gold px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-[0_0_20px_rgba(212,175,55,0.45)]"
+                >
+                  <span>Confirm</span>
+                  <Scissors className="w-3.5 h-3.5 text-black" />
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
         ) : (
           /* STEP 5: Final Confirmation Pass (Full Width) */
-          <div className="p-8 sm:p-12 text-center space-y-6 overflow-y-auto">
-            <div className="w-20 h-20 rounded-full bg-[#D4AF37]/20 border-2 border-[#D4AF37] flex items-center justify-center mx-auto shadow-[0_0_35px_#D4AF37]">
-              <Sparkles className="w-10 h-10 text-[#F4E295] animate-pulse" />
+          <div className="p-6 sm:p-12 text-center space-y-6 overflow-y-auto">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#D4AF37]/20 border-2 border-[#D4AF37] flex items-center justify-center mx-auto shadow-[0_0_35px_#D4AF37]">
+              <Sparkles className="w-8 h-8 sm:w-10 sm:h-10 text-[#F4E295] animate-pulse" />
             </div>
 
             <div>
-              <span className="text-xs uppercase tracking-[0.35em] text-[#D4AF37] font-mono font-bold block mb-1">
+              <span className="text-[10px] sm:text-xs uppercase tracking-[0.35em] text-[#D4AF37] font-mono font-bold block mb-1">
                 Haute Reservation Confirmed
               </span>
-              <h3 className="font-cinzel text-2xl sm:text-3xl font-bold text-white">
+              <h3 className="font-cinzel text-xl sm:text-3xl font-bold text-white">
                 Welcome to City Scissor, {guestName}
               </h3>
             </div>
 
             {/* Reservation Pass Card */}
-            <div className="max-w-md mx-auto p-6 rounded-3xl bg-[#14141e] border border-[#D4AF37]/40 text-left space-y-4 shadow-2xl">
+            <div className="max-w-md mx-auto p-5 sm:p-6 rounded-3xl bg-[#14141e] border border-[#D4AF37]/40 text-left space-y-4 shadow-2xl">
               <div className="flex items-center justify-between border-b border-white/10 pb-3">
                 <div>
                   <span className="text-[10px] text-[#9C9EA9] uppercase font-mono block">Pass Code</span>
@@ -701,10 +764,10 @@ END:VCALENDAR`;
             </div>
 
             {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2 w-full max-w-sm sm:max-w-none mx-auto">
               <button
                 onClick={handleDownloadCalendar}
-                className="btn-outline-gold pill-large font-bold tracking-wider uppercase cursor-pointer"
+                className="btn-outline-gold pill-large w-full sm:w-auto font-bold tracking-wider uppercase cursor-pointer"
               >
                 <Download className="w-4 h-4 text-[#D4AF37]" />
                 <span>Add to Calendar (.ics)</span>
@@ -714,7 +777,7 @@ END:VCALENDAR`;
                 href={`https://wa.me/917948921100?text=Hello%20City%20Scissor%2C%20I%20have%20booked%20an%20appointment%20with%20Pass%20Code%20${bookingPassCode}%20for%20${guestName}.`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-gold pill-large font-bold tracking-wider uppercase flex items-center justify-center gap-2.5 cursor-pointer shadow-lg"
+                className="btn-gold pill-large w-full sm:w-auto font-bold tracking-wider uppercase flex items-center justify-center gap-2.5 cursor-pointer shadow-lg"
               >
                 <Phone className="w-4 h-4 text-black" />
                 <span>WhatsApp Concierge</span>

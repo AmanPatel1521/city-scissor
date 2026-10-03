@@ -10,7 +10,7 @@ const metrics = [
 
 export default function TrustMetricsStrip() {
   return (
-    <section className="w-full relative z-10 py-24 px-4 sm:px-6 lg:px-8" style={{ background: '#070709', borderTop: '1px solid rgba(212,175,55,0.18)', borderBottom: '1px solid rgba(212,175,55,0.18)', overflow: 'hidden' }}>
+    <section className="w-full relative z-10 py-12 sm:py-24 px-3 sm:px-6 lg:px-8" style={{ background: '#070709', borderTop: '1px solid rgba(212,175,55,0.18)', borderBottom: '1px solid rgba(212,175,55,0.18)', overflow: 'hidden' }}>
       {/* Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-24 rounded-full pointer-events-none" style={{ background: 'rgba(212,175,55,0.04)', filter: 'blur(80px)' }} />
 
@@ -21,21 +21,21 @@ export default function TrustMetricsStrip() {
             return (
               <div
                 key={m.title}
-                className="flex flex-col items-center justify-center text-center px-10 py-16 group transition-all duration-300"
+                className="flex flex-col items-center justify-center text-center px-3 sm:px-10 py-7 sm:py-16 group transition-all duration-300"
                 style={{ background: '#0d0d12' }}
                 onMouseEnter={e => e.currentTarget.style.background = 'rgba(212,175,55,0.02)'}
                 onMouseLeave={e => e.currentTarget.style.background = '#0d0d12'}
               >
                 <div
-                  className="w-14 h-14 rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300"
+                  className="w-10 h-10 sm:w-14 sm:h-14 rounded-xl flex items-center justify-center mb-3 sm:mb-5 group-hover:scale-110 transition-transform duration-300 shrink-0"
                   style={{ background: `rgba(${m.accent === '#C98993' ? '201,137,147' : '212,175,55'},0.12)`, border: `1px solid rgba(${m.accent === '#C98993' ? '201,137,147' : '212,175,55'},0.3)` }}
                 >
-                  <Icon className="w-6 h-6" style={{ color: m.accent }} />
+                  <Icon className="w-4 h-4 sm:w-6 sm:h-6" style={{ color: m.accent }} />
                 </div>
-                <div className="font-mono text-white font-bold text-xl sm:text-2xl mb-1 group-hover:text-[#F4E295] transition-colors">
+                <div className="font-mono text-white font-bold text-base sm:text-2xl mb-1 group-hover:text-[#F4E295] transition-colors">
                   {m.title}
                 </div>
-                <div className="text-xs sm:text-sm" style={{ color: '#7a7c88' }}>
+                <div className="text-[10px] sm:text-sm leading-tight sm:leading-normal" style={{ color: '#7a7c88' }}>
                   {m.subtitle}
                 </div>
               </div>

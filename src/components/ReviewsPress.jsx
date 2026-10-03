@@ -33,36 +33,36 @@ export default function ReviewsPress() {
   const pressRef  = useGSAPReveal('up', 0);
 
   return (
-    <section className="w-full py-24 lg:py-32" style={{ background: '#070709', borderTop: '1px solid rgba(212,175,55,0.12)', overflow: 'hidden' }}>
+    <section className="w-full py-16 sm:py-24 lg:py-32" style={{ background: '#070709', borderTop: '1px solid rgba(212,175,55,0.12)', overflow: 'hidden' }}>
 
       {/* Header */}
-      <div className="max-w-7xl mx-auto px-5 sm:px-10 lg:px-16 mb-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-10 lg:px-16 mb-10 sm:mb-16">
         <div ref={headerRef} className="reveal flex flex-col items-center text-center">
-          <p className="text-[9px] uppercase tracking-[0.4em] font-mono font-semibold mb-4" style={{ color: '#D4AF37' }}>
+          <p className="text-[9px] uppercase tracking-[0.4em] font-mono font-semibold mb-3 sm:mb-4" style={{ color: '#D4AF37' }}>
             Guest Commendations
           </p>
-          <h2 className="font-cinzel text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
+          <h2 className="font-cinzel text-2xl sm:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-4">
             Praised by <span className="gold-gradient-text">Ahmedabad&rsquo;s Connoisseurs</span>
           </h2>
-          <div className="w-14 h-px mx-auto mb-5" style={{ background: 'linear-gradient(to right, transparent, #D4AF37, transparent)' }} />
-          <p className="font-cormorant italic text-lg sm:text-xl max-w-xl mx-auto text-center leading-relaxed" style={{ color: '#9C9EA9' }}>
+          <div className="w-14 h-px mx-auto mb-4 sm:mb-5" style={{ background: 'linear-gradient(to right, transparent, #D4AF37, transparent)' }} />
+          <p className="font-cormorant italic text-base sm:text-xl max-w-xl mx-auto text-center leading-relaxed px-2" style={{ color: '#9C9EA9' }}>
             Over 1,240 verified 5-star ratings across Ambawadi, Vastrapur, Bodakdev, and beyond.
           </p>
         </div>
       </div>
 
       {/* Marquee track */}
-      <div className="relative mb-16" style={{ overflow: 'hidden' }}>
+      <div className="relative mb-12 sm:mb-16" style={{ overflow: 'hidden' }}>
         {/* Fades */}
-        <div className="absolute left-0 top-0 bottom-0 z-10 w-24 pointer-events-none" style={{ background: 'linear-gradient(to right, #070709, transparent)' }} />
-        <div className="absolute right-0 top-0 bottom-0 z-10 w-24 pointer-events-none" style={{ background: 'linear-gradient(to left, #070709, transparent)' }} />
+        <div className="absolute left-0 top-0 bottom-0 z-10 w-12 sm:w-24 pointer-events-none" style={{ background: 'linear-gradient(to right, #070709, transparent)' }} />
+        <div className="absolute right-0 top-0 bottom-0 z-10 w-12 sm:w-24 pointer-events-none" style={{ background: 'linear-gradient(to left, #070709, transparent)' }} />
 
-        <div className="marquee-track" style={{ gap: '20px', paddingLeft: '20px', paddingTop: '6px', paddingBottom: '8px' }}>
+        <div className="marquee-track" style={{ gap: '16px', paddingLeft: '16px', paddingTop: '6px', paddingBottom: '8px' }}>
           {marqueeReviews.map((rev, i) => (
             <div
               key={i}
-              className="flex-shrink-0 flex flex-col p-8 rounded-3xl"
-              style={{ width: '340px', background: '#0e0e16', border: '1px solid rgba(212,175,55,0.12)' }}
+              className="flex-shrink-0 flex flex-col p-5 sm:p-8 rounded-3xl w-[280px] xs:w-[320px] sm:w-[340px]"
+              style={{ background: '#0e0e16', border: '1px solid rgba(212,175,55,0.12)' }}
             >
               {/* Stars + quote */}
               <div className="flex items-start justify-between mb-3">
@@ -75,7 +75,7 @@ export default function ReviewsPress() {
               </div>
 
               {/* Review text */}
-              <p className="font-cormorant text-[15px] italic leading-relaxed mb-4 flex-1" style={{ color: '#dde0ee' }}>
+              <p className="font-cormorant text-sm sm:text-[15px] italic leading-relaxed mb-4 flex-1" style={{ color: '#dde0ee' }}>
                 &ldquo;{rev.text}&rdquo;
               </p>
 

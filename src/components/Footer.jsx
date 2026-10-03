@@ -37,23 +37,23 @@ export default function Footer({ onOpenBooking }) {
           <p className="font-cormorant italic text-base sm:text-lg mb-8 max-w-lg mx-auto leading-relaxed" style={{ color: '#8a8c98' }}>
             Reserve your private ritual at our Ambawadi atelier, directly on the main road opposite the BRTS bus stop. Same-day appointments available.
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full max-w-xs sm:max-w-none mx-auto">
             <button
               onClick={() => { audioManager.playScissorSnip(); onOpenBooking?.(); }}
-              className="flex items-center gap-2.5 px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest cursor-pointer transition-all duration-200"
+              className="w-full sm:w-auto flex items-center justify-center gap-2.5 px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest cursor-pointer transition-all duration-200"
               style={{ background: 'linear-gradient(135deg, #F4E295, #D4AF37, #B89020)', color: '#070709', boxShadow: '0 0 30px rgba(212,175,55,0.35)' }}
             >
               <Scissors className="w-3.5 h-3.5" />
-              Reserve Your Chair
+              <span>Reserve Your Chair</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </button>
             <a
               href="tel:+917948921100"
-              className="flex items-center gap-2.5 px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest cursor-pointer transition-all duration-200"
+              className="w-full sm:w-auto flex items-center justify-center gap-2.5 px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest cursor-pointer transition-all duration-200"
               style={{ border: '1px solid rgba(212,175,55,0.35)', color: '#D4AF37', background: 'transparent' }}
             >
               <Phone className="w-3.5 h-3.5" />
-              Call Concierge
+              <span>Call Concierge</span>
             </a>
           </div>
         </div>

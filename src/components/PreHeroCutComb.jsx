@@ -50,7 +50,7 @@ export default function PreHeroCutComb({ onIntroProgress, onIntroComplete }) {
     sceneRef.current = scene;
 
     const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
-    camera.position.set(0, 0, 8.2);
+    camera.position.set(0, 0, isMobile ? 11.5 : 8.2);
     cameraRef.current = camera;
 
     // 2. WebGL Renderer
@@ -88,27 +88,28 @@ export default function PreHeroCutComb({ onIntroProgress, onIntroComplete }) {
     rosePoint.position.set(0, -3, 4);
     scene.add(rosePoint);
 
-    // 5. 3D Models
+    // 5. 3D Models (Calibrated for desktop landscape & mobile portrait)
+    const scissorScale = isMobile ? 1.05 : 1.45;
     const scissorObj = createScissorMesh(envMap);
     scissorObj.group.position.set(0, 0, 0);
-    scissorObj.group.scale.set(1.45, 1.45, 1.45);
+    scissorObj.group.scale.set(scissorScale, scissorScale, scissorScale);
     scene.add(scissorObj.group);
     scissorObjRef.current = scissorObj;
 
     const combMesh = createCombMesh(envMap);
-    combMesh.position.set(-3.4, 1.9, -1.2);
+    combMesh.position.set(isMobile ? -1.8 : -3.4, isMobile ? 2.4 : 1.9, -1.2);
     combMesh.rotation.set(0.2, 0.4, -0.35);
     scene.add(combMesh);
     combGroupRef.current = combMesh;
 
     const clipMesh = createClipMesh(envMap);
-    clipMesh.position.set(3.5, 1.8, -1.4);
+    clipMesh.position.set(isMobile ? 1.8 : 3.5, isMobile ? 2.4 : 1.8, -1.4);
     clipMesh.rotation.set(-0.3, -0.5, 0.6);
     scene.add(clipMesh);
     clipGroupRef.current = clipMesh;
 
     const razorMesh = createRazorMesh(envMap);
-    razorMesh.position.set(3.0, -2.2, -1.0);
+    razorMesh.position.set(isMobile ? 1.6 : 3.0, isMobile ? -2.5 : -2.2, -1.0);
     razorMesh.rotation.set(0.4, 0.2, -0.4);
     scene.add(razorMesh);
     razorGroupRef.current = razorMesh;
@@ -117,16 +118,26 @@ export default function PreHeroCutComb({ onIntroProgress, onIntroComplete }) {
     scene.add(dustField.group);
     dustFieldRef.current = dustField;
 
-    // 6. Mouse Parallax
+    // 6. Mouse & Touch Parallax
     const handleMouseMove = (e) => {
       mouseRef.current.targetX = (e.clientX / window.innerWidth - 0.5) * 2;
       mouseRef.current.targetY = (e.clientY / window.innerHeight - 0.5) * 2;
     };
     window.addEventListener('mousemove', handleMouseMove);
 
+    const handleTouchParallax = (e) => {
+      if (e.touches && e.touches[0]) {
+        mouseRef.current.targetX = (e.touches[0].clientX / window.innerWidth - 0.5) * 1.5;
+        mouseRef.current.targetY = (e.touches[0].clientY / window.innerHeight - 0.5) * 1.5;
+      }
+    };
+    window.addEventListener('touchmove', handleTouchParallax, { passive: true });
+
     const handleResize = () => {
       const w = window.innerWidth;
       const h = window.innerHeight;
+      const isMob = w < 768;
+      camera.position.z = isMob ? 11.5 : 8.2;
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
       renderer.setSize(w, h);
@@ -317,7 +328,7 @@ export default function PreHeroCutComb({ onIntroProgress, onIntroComplete }) {
           transform: `translateX(-${displayProgress * 110}%) rotate(-${displayProgress * 4}deg)`,
           opacity: 1,
           backgroundImage: 'url(/images/Ahmedabad_City.jpg)',
-          backgroundSize: '100vw 100vh',
+          backgroundSize: 'cover',
           backgroundPosition: 'left center',
           backgroundRepeat: 'no-repeat'
         }}
@@ -333,7 +344,7 @@ export default function PreHeroCutComb({ onIntroProgress, onIntroComplete }) {
           transform: `translateX(${displayProgress * 110}%) rotate(${displayProgress * 4}deg)`,
           opacity: 1,
           backgroundImage: 'url(/images/Ahmedabad_City.jpg)',
-          backgroundSize: '100vw 100vh',
+          backgroundSize: 'cover',
           backgroundPosition: 'right center',
           backgroundRepeat: 'no-repeat'
         }}
@@ -354,13 +365,13 @@ export default function PreHeroCutComb({ onIntroProgress, onIntroComplete }) {
 
       {/* Editorial City Scissor Intro Title (Offset cleanly below AHMEDABAD in background) */}
       <div
-        className="absolute inset-0 flex flex-col items-center justify-center pt-20 sm:pt-28 md:pt-36 lg:pt-40 pointer-events-none z-30 transition-all duration-300 px-6 text-center"
+        className="absolute inset-0 flex flex-col items-center justify-center pt-16 sm:pt-28 md:pt-36 lg:pt-40 pointer-events-none z-30 transition-all duration-300 px-4 sm:px-6 text-center"
         style={{
           opacity: Math.max(0, 1 - displayProgress * 12),
           transform: `scale(${1 - displayProgress * 0.15}) translateY(-${displayProgress * 40}px)`,
         }}
       >
-        <div className="relative px-6 sm:px-10 py-4 sm:py-6 rounded-3xl flex flex-col items-center">
+        <div className="relative px-4 sm:px-10 py-3 sm:py-6 rounded-3xl flex flex-col items-center max-w-[95vw]">
           {/* Subtle atmospheric radial vignette to separate title from busy city buildings */}
           <div
             className="absolute inset-0 -z-10 rounded-3xl pointer-events-none"
@@ -370,27 +381,27 @@ export default function PreHeroCutComb({ onIntroProgress, onIntroComplete }) {
             }}
           />
 
-          <h1 className="font-cinzel text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-widest text-white select-none drop-shadow-[0_10px_35px_rgba(0,0,0,1)]">
+          <h1 className="font-cinzel text-3xl xs:text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-widest text-white select-none drop-shadow-[0_10px_35px_rgba(0,0,0,1)]">
             CITY <span className="gold-gradient-text">SCISSOR</span>
           </h1>
 
-          <p className="mt-3 sm:mt-4 text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.35em] text-[#E6CA65] font-mono font-semibold drop-shadow-[0_4px_15px_rgba(0,0,0,0.9)] flex items-center justify-center gap-2 sm:gap-3 whitespace-nowrap">
-            <span className="w-6 sm:w-10 h-px bg-gradient-to-r from-transparent to-[#D4AF37]" />
+          <p className="mt-2.5 sm:mt-4 text-[9px] xs:text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.16em] sm:tracking-[0.35em] text-[#E6CA65] font-mono font-semibold drop-shadow-[0_4px_15px_rgba(0,0,0,0.9)] flex items-center justify-center gap-1.5 sm:gap-3">
+            <span className="w-4 sm:w-10 h-px bg-gradient-to-r from-transparent to-[#D4AF37]" />
             <span>Luxury Unisex Salon • Ambawadi</span>
-            <span className="w-6 sm:w-10 h-px bg-gradient-to-l from-transparent to-[#D4AF37]" />
+            <span className="w-4 sm:w-10 h-px bg-gradient-to-l from-transparent to-[#D4AF37]" />
           </p>
         </div>
       </div>
 
       {/* Bottom Control (Progress Scrubber & Enter Button) */}
       <div
-        className="absolute bottom-8 sm:bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-30 transition-opacity duration-300 pointer-events-auto"
+        className="absolute bottom-6 sm:bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 sm:gap-4 z-30 transition-opacity duration-300 pointer-events-auto w-full px-6 max-w-sm"
         style={{
           opacity: Math.max(0, 1 - displayProgress * 2.5),
         }}
       >
         {/* Progress Scrubber */}
-        <div className="w-64 sm:w-80 h-2.5 bg-[#171722] rounded-full overflow-hidden border border-[#D4AF37]/40 shadow-inner">
+        <div className="w-56 xs:w-64 sm:w-80 h-2 sm:h-2.5 bg-[#171722] rounded-full overflow-hidden border border-[#D4AF37]/40 shadow-inner">
           <div
             className="h-full bg-gradient-to-r from-[#D4AF37] via-[#F4E295] to-[#D4AF37] rounded-full transition-all duration-100 ease-out"
             style={{ width: `${Math.max(6, displayProgress * 100)}%` }}
@@ -403,7 +414,7 @@ export default function PreHeroCutComb({ onIntroProgress, onIntroComplete }) {
             e.stopPropagation();
             handleInstantOpen();
           }}
-          className="btn-gold pill-large font-bold tracking-[0.15em] uppercase flex items-center justify-center gap-3.5 shadow-[0_0_40px_rgba(212,175,55,0.5)] hover:scale-105 transition-transform cursor-pointer overflow-hidden whitespace-nowrap"
+          className="btn-gold pill-large w-full max-w-[260px] sm:max-w-none font-bold tracking-[0.15em] uppercase flex items-center justify-center gap-3 shadow-[0_0_40px_rgba(212,175,55,0.5)] hover:scale-105 transition-transform cursor-pointer overflow-hidden"
         >
           <Scissors className="w-4 h-4 text-black shrink-0" />
           <span>ENTER SALON</span>

@@ -114,7 +114,7 @@ html, body {
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9), 0 0 30px -5px rgba(212, 175, 55, 0.2);
 }
 
-/* LARGE, SPACIOUS PILL BADGES & BUTTONS (Zero Edge Clipping) */
+/* LARGE, SPACIOUS PILL BADGES & BUTTONS (Zero Edge Clipping on Desktop, Auto-Adaptive on Mobile) */
 .pill-large {
   padding: 16px 58px !important;
   border-radius: 9999px !important;
@@ -126,7 +126,6 @@ html, body {
   font-size: 13.5px !important;
   letter-spacing: 0.12em !important;
   white-space: nowrap !important;
-  
 }
 
 .pill-medium {
@@ -140,7 +139,6 @@ html, body {
   font-size: 12.5px !important;
   letter-spacing: 0.1em !important;
   white-space: nowrap !important;
-  
 }
 
 .pill-status {
@@ -154,7 +152,6 @@ html, body {
   font-size: 12px !important;
   letter-spacing: 0.09em !important;
   white-space: nowrap !important;
-  
 }
 
 .pill-tab {
@@ -168,7 +165,6 @@ html, body {
   font-size: 12px !important;
   letter-spacing: 0.08em !important;
   white-space: nowrap !important;
-  
 }
 
 .pill-tag {
@@ -182,7 +178,66 @@ html, body {
   font-size: 11px !important;
   letter-spacing: 0.08em !important;
   white-space: nowrap !important;
-  
+}
+
+/* Mobile-Friendly Pill & Button Overrides (< 640px) */
+@media (max-width: 640px) {
+  .pill-large {
+    padding: 12px 24px !important;
+    min-height: 46px !important;
+    gap: 10px !important;
+    font-size: 12px !important;
+    letter-spacing: 0.08em !important;
+    white-space: normal !important;
+    text-align: center !important;
+  }
+
+  .pill-medium {
+    padding: 10px 20px !important;
+    min-height: 40px !important;
+    gap: 8px !important;
+    font-size: 11px !important;
+    letter-spacing: 0.06em !important;
+    white-space: normal !important;
+    text-align: center !important;
+  }
+
+  .pill-status {
+    padding: 8px 16px !important;
+    min-height: 36px !important;
+    gap: 8px !important;
+    font-size: 10.5px !important;
+    letter-spacing: 0.06em !important;
+    white-space: normal !important;
+    max-width: 95vw !important;
+  }
+
+  .pill-tab {
+    padding: 8px 16px !important;
+    min-height: 34px !important;
+    gap: 6px !important;
+    font-size: 11px !important;
+    letter-spacing: 0.05em !important;
+    white-space: nowrap !important;
+  }
+
+  .pill-tag {
+    padding: 5px 14px !important;
+    min-height: 26px !important;
+    gap: 6px !important;
+    font-size: 10px !important;
+    letter-spacing: 0.05em !important;
+  }
+}
+
+/* Horizontal Scroll Utilities for Mobile Touch Tracks */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Luxury Buttons with Zero Spill */

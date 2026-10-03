@@ -65,7 +65,7 @@ function ServiceCard({ service, cardRef, onSelectService, onOpenBooking }) {
       style={{ opacity: 0 }}
     >
       <div
-        className="group flex flex-col flex-1 h-full min-h-[460px] rounded-2xl overflow-hidden transition-all duration-300 relative"
+        className="group flex flex-col flex-1 h-full min-h-[400px] sm:min-h-[460px] rounded-2xl overflow-hidden transition-all duration-300 relative"
         style={service.featured
           ? { background: '#0f0f17', border: '1px solid rgba(212,175,55,0.28)', boxShadow: '0 0 25px rgba(212,175,55,0.06)' }
           : { background: '#0c0c13', border: '1px solid rgba(255,255,255,0.07)' }
@@ -81,7 +81,7 @@ function ServiceCard({ service, cardRef, onSelectService, onOpenBooking }) {
       >
         {/* Uniform Top Header Bar for consistent height across all cards */}
         <div
-          className="flex items-center justify-between px-6 py-2.5 border-b shrink-0"
+          className="flex items-center justify-between px-4 sm:px-6 py-2.5 border-b shrink-0"
           style={service.featured
             ? { background: 'rgba(212,175,55,0.08)', borderColor: 'rgba(212,175,55,0.18)' }
             : { background: 'rgba(255,255,255,0.015)', borderColor: 'rgba(255,255,255,0.04)' }
@@ -114,7 +114,7 @@ function ServiceCard({ service, cardRef, onSelectService, onOpenBooking }) {
           </span>
         </div>
 
-        <div className="flex flex-col flex-1 p-7 sm:p-8">
+        <div className="flex flex-col flex-1 p-5 sm:p-8">
           {/* Meta chips */}
           <div className="flex items-center gap-2 mb-4">
             <span
@@ -276,25 +276,25 @@ export default function ServicesAtelier({ onSelectService, selectedServiceIds = 
   }, [activeCategory, filtered.length]);
 
   return (
-    <section id="services" className="w-full py-24 lg:py-32 px-5 sm:px-10 lg:px-16" style={{ background: '#08080c', borderTop: '1px solid rgba(212,175,55,0.12)' }}>
+    <section id="services" className="w-full py-16 sm:py-24 lg:py-32 px-4 sm:px-10 lg:px-16" style={{ background: '#08080c', borderTop: '1px solid rgba(212,175,55,0.12)' }}>
       <div className="max-w-7xl mx-auto">
 
         {/* Header */}
-        <div ref={headerRef} className="reveal flex flex-col items-center text-center mb-16">
-          <p className="text-[10px] uppercase tracking-[0.4em] font-mono font-semibold mb-3" style={{ color: '#D4AF37' }}>
+        <div ref={headerRef} className="reveal flex flex-col items-center text-center mb-10 sm:mb-16">
+          <p className="text-[10px] uppercase tracking-[0.35em] sm:tracking-[0.4em] font-mono font-semibold mb-2.5 sm:mb-3" style={{ color: '#D4AF37' }}>
             Bespoke Grooming &amp; Hair Architecture
           </p>
-          <h2 className="font-cinzel text-3xl sm:text-4xl lg:text-[44px] font-bold text-white mb-3">
+          <h2 className="font-cinzel text-2xl sm:text-4xl lg:text-[44px] font-bold text-white mb-3">
             Services <span className="gold-gradient-text">Atelier</span>
           </h2>
           <div className="w-12 h-px mx-auto mb-4" style={{ background: 'linear-gradient(to right, transparent, #D4AF37, transparent)' }} />
-          <p className="font-cormorant italic text-lg sm:text-xl max-w-lg mx-auto text-center leading-relaxed" style={{ color: '#9C9EA9' }}>
+          <p className="font-cormorant italic text-base sm:text-xl max-w-lg mx-auto text-center leading-relaxed px-2" style={{ color: '#9C9EA9' }}>
             Curated rituals combining world-class formulas with bespoke precision cutting.
           </p>
         </div>
 
-        {/* Category Filters */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-16">
+        {/* Category Filters (Horizontally scrollable on mobile, centered on desktop) */}
+        <div className="flex items-center sm:justify-center gap-2 mb-10 sm:mb-16 overflow-x-auto no-scrollbar py-2 -mx-4 px-4 sm:mx-0 sm:flex-wrap">
           {CATEGORIES.map(({ id, label }) => (
             <button
               key={id}
@@ -302,10 +302,10 @@ export default function ServicesAtelier({ onSelectService, selectedServiceIds = 
                 audioManager.playClick();
                 setActiveCategory(id);
               }}
-              className="rounded-full font-semibold uppercase tracking-wider transition-all duration-200 cursor-pointer whitespace-nowrap flex-shrink-0"
+              className="rounded-full font-semibold uppercase tracking-wider transition-all duration-200 cursor-pointer whitespace-nowrap shrink-0"
               style={activeCategory === id
-                ? { background: '#D4AF37', color: '#070709', padding: '6px 16px', fontSize: '10px', boxShadow: '0 0 14px rgba(212,175,55,0.3)' }
-                : { background: '#111118', border: '1px solid rgba(255,255,255,0.09)', color: '#7a7c88', padding: '6px 16px', fontSize: '10px' }
+                ? { background: '#D4AF37', color: '#070709', padding: '7px 18px', fontSize: '10.5px', boxShadow: '0 0 14px rgba(212,175,55,0.3)' }
+                : { background: '#111118', border: '1px solid rgba(255,255,255,0.09)', color: '#7a7c88', padding: '7px 18px', fontSize: '10.5px' }
               }
             >
               {label}

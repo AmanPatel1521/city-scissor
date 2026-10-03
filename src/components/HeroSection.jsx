@@ -95,17 +95,17 @@ export default function HeroSection({ onOpenBooking, onExploreServices }) {
       <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center justify-center text-center my-auto w-full">
 
         {/* 1. Top Refined Atelier Crest */}
-        <div ref={crestRef} className="inline-flex items-center pill-status bg-[#111117]/90 border border-[#D4AF37]/35 shadow-[0_0_20px_rgba(212,175,55,0.12)] mb-8">
-          <CityScissorLogo className="w-4 h-4" glow={false} />
-          <span className="text-[11px] sm:text-xs uppercase tracking-[0.25em] text-[#E6CA65] font-mono font-semibold whitespace-nowrap">
+        <div ref={crestRef} className="inline-flex items-center pill-status bg-[#111117]/90 border border-[#D4AF37]/35 shadow-[0_0_20px_rgba(212,175,55,0.12)] mb-6 sm:mb-8 max-w-[94vw]">
+          <CityScissorLogo className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" glow={false} />
+          <span className="text-[10px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.25em] text-[#E6CA65] font-mono font-semibold">
             Opp. BRTS Bus Stop • Ambawadi • Ahmedabad
           </span>
         </div>
 
         {/* 2. Dead-Center Monumental Kinetic Title */}
-        <div className="relative w-full mb-6 text-center flex flex-col items-center justify-center">
-          <h1 className="font-cinzel text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tight select-none py-2 text-center mx-auto leading-none">
-            <span className="inline-block mr-3 sm:mr-6 whitespace-nowrap">
+        <div className="relative w-full mb-5 sm:mb-6 text-center flex flex-col items-center justify-center px-2">
+          <h1 className="font-cinzel text-3xl xs:text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-black tracking-tight select-none py-1 sm:py-2 text-center mx-auto leading-none">
+            <span className="inline-block mr-2 sm:mr-6 whitespace-nowrap">
               {word1.split('').map((char, index) => (
                 <span
                   key={index}
@@ -130,18 +130,18 @@ export default function HeroSection({ onOpenBooking, onExploreServices }) {
             </span>
           </h1>
 
-          <p ref={subtitleRef} className="text-[11px] sm:text-xs uppercase tracking-[0.45em] text-[#C98993] font-mono mt-3 font-semibold text-center mx-auto">
+          <p ref={subtitleRef} className="text-[9px] xs:text-[10px] sm:text-xs uppercase tracking-[0.2em] sm:tracking-[0.45em] text-[#C98993] font-mono mt-2.5 sm:mt-3 font-semibold text-center mx-auto">
             Haute Coiffure &amp; Bespoke Styling Atelier
           </p>
         </div>
 
         {/* 3. Airy, Poetic Subtitle */}
-        <p ref={quoteRef} className="font-cormorant text-xl sm:text-2xl md:text-3xl italic text-[#C0C2C9] max-w-2xl mx-auto mb-10 leading-relaxed font-light text-center">
+        <p ref={quoteRef} className="font-cormorant text-base xs:text-lg sm:text-2xl md:text-3xl italic text-[#C0C2C9] max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed font-light text-center px-4">
           "Where high-precision Japanese shears meet bespoke hair architecture."
         </p>
 
-        {/* 4. Symmetrical Centered Luxury CTAs (Equal 300px Width for Perfect Center Alignment) */}
-        <div ref={buttonsRef} className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 mx-auto w-full">
+        {/* 4. Symmetrical Centered Luxury CTAs */}
+        <div ref={buttonsRef} className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 mx-auto w-full max-w-[280px] sm:max-w-none">
           <button
             onClick={() => {
               audioManager.playScissorSnip();
