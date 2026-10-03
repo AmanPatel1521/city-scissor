@@ -12,9 +12,6 @@ export default function LookbookGallery({ onOpenBooking }) {
   const sliderContainerRef = useRef(null);
 
   const headerRef = useGSAPReveal('up', 0);
-  const tabsRef   = useGSAPReveal('up', 100);
-  const sliderRef = useGSAPReveal('scale', 200);
-  const detailRef = useGSAPReveal('up', 300);
 
   const currentTrans = lookbookTransformations[activeTransIndex];
 
@@ -53,7 +50,7 @@ export default function LookbookGallery({ onOpenBooking }) {
         </div>
 
         {/* ── Case Study Tabs (Swipeable on Mobile) ── */}
-        <div ref={tabsRef} className="reveal flex justify-start sm:justify-center mb-8 sm:mb-16 overflow-x-auto no-scrollbar -mx-4 px-4 sm:mx-0">
+        <div className="flex justify-start sm:justify-center mb-8 sm:mb-16 overflow-x-auto no-scrollbar -mx-4 px-4 sm:mx-0">
           <div className="inline-flex p-1.5 rounded-2xl gap-1.5 shrink-0" style={{ background: '#121220', border: '1px solid rgba(255,255,255,0.08)' }}>
             {lookbookTransformations.map((trans, idx) => (
               <button
@@ -78,7 +75,7 @@ export default function LookbookGallery({ onOpenBooking }) {
         </div>
 
         {/* ── Interactive Slider ── */}
-        <div ref={sliderRef} className="reveal reveal-scale max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           <div
             ref={sliderContainerRef}
             onMouseDown={handleMouseDown}
@@ -147,7 +144,7 @@ export default function LookbookGallery({ onOpenBooking }) {
           </div>
 
           {/* ── Detail Panel ── */}
-          <div ref={detailRef} className="reveal mt-5 sm:mt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 p-5 sm:px-12 sm:py-10 rounded-2xl bg-[#121218] border border-white/8">
+          <div className="mt-5 sm:mt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 p-5 sm:px-12 sm:py-10 rounded-2xl bg-[#121218] border border-white/8">
             <div className="flex-1">
               <h3 className="font-cinzel text-base font-bold text-white mb-1">{currentTrans.title}</h3>
               <p className="text-xs sm:text-base text-[#9C9EA9] leading-relaxed">{currentTrans.description}</p>

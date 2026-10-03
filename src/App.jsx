@@ -15,9 +15,10 @@ import MobileBottomBar from './components/MobileBottomBar';
 import { audioManager } from './utils/audioManager';
 
 export default function App() {
-  const [introProgress, setIntroProgress] = useState(0);
+  const isMobileDevice = typeof window !== 'undefined' && window.innerWidth < 768;
+  const [introProgress, setIntroProgress] = useState(isMobileDevice ? 1 : 0);
   const [heroDwellProgress, setHeroDwellProgress] = useState(0);
-  const [isIntroDone, setIsIntroDone] = useState(false);
+  const [isIntroDone, setIsIntroDone] = useState(isMobileDevice);
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [selectedServiceId, setSelectedServiceId] = useState('hc-master-sculpt');
   const [selectedStylistId, setSelectedStylistId] = useState('any');

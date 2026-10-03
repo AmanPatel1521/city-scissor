@@ -20,7 +20,13 @@ export default function HeroSection({ onOpenBooking, onExploreServices }) {
   const bg2Ref = useRef(null);
 
   useGSAP(() => {
-    // Prevent the initial flash of empty space
+    const isMobile = window.innerWidth < 768;
+
+    // Background slow pulsing & parallax setup
+    gsap.to(bg1Ref.current, { scale: 1.1, duration: 8, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+    gsap.to(bg2Ref.current, { scale: 1.15, rotation: 10, duration: 10, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+
+    // Always ensure elements are at full opacity by default
     gsap.set(
       [
         crestRef.current,
@@ -33,11 +39,10 @@ export default function HeroSection({ onOpenBooking, onExploreServices }) {
       { opacity: 1, y: 0, x: 0 }
     );
 
-    const tl = gsap.timeline({ defaults: { ease: 'power3.out' }, delay: 0.1 });
-
-    // Background slow pulsing & parallax setup
-    gsap.to(bg1Ref.current, { scale: 1.1, duration: 8, yoyo: true, repeat: -1, ease: 'sine.inOut' });
-    gsap.to(bg2Ref.current, { scale: 1.15, rotation: 10, duration: 10, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+    // On mobile, skip the slow staggered blocking timeline so text is 100% visible immediately
+    if (isMobile) {
+      return;
+    }
 
     gsap.to(bg1Ref.current, {
       y: 200,
@@ -59,15 +64,16 @@ export default function HeroSection({ onOpenBooking, onExploreServices }) {
       }
     });
 
-    // Main text animation sequence
-    tl.from(crestRef.current, { opacity: 0, y: -20, duration: 1 }, "+=0.2")
+    // Main text animation sequence on desktop
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out' }, delay: 0.1 });
+    tl.from(crestRef.current, { opacity: 0, y: -20, duration: 0.8 }, "+=0.1")
       .from(word1Ref.current, 
-        { opacity: 0, y: (i) => i % 2 === 0 ? -40 : 40, duration: 1.2, stagger: 0.08 }, "-=0.5")
+        { opacity: 0, y: (i) => i % 2 === 0 ? -30 : 30, duration: 0.8, stagger: 0.05 }, "-=0.4")
       .from(word2Ref.current, 
-        { opacity: 0, y: (i) => i % 2 === 0 ? 40 : -40, duration: 1.2, stagger: 0.08 }, "-=1.0")
-      .from(subtitleRef.current, { opacity: 0, y: 20, duration: 1 }, "-=0.6")
-      .from(quoteRef.current, { opacity: 0, y: 20, duration: 1 }, "-=0.7")
-      .from(buttonsRef.current, { opacity: 0, y: 20, duration: 1 }, "-=0.8");
+        { opacity: 0, y: (i) => i % 2 === 0 ? 30 : -30, duration: 0.8, stagger: 0.05 }, "-=0.6")
+      .from(subtitleRef.current, { opacity: 0, y: 15, duration: 0.6 }, "-=0.4")
+      .from(quoteRef.current, { opacity: 0, y: 15, duration: 0.6 }, "-=0.4")
+      .from(buttonsRef.current, { opacity: 0, y: 15, duration: 0.6 }, "-=0.4");
   }, { scope: container });
 
   const word1 = "CITY";
@@ -95,9 +101,9 @@ export default function HeroSection({ onOpenBooking, onExploreServices }) {
       <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center justify-center text-center my-auto w-full">
 
         {/* 1. Top Refined Atelier Crest */}
-        <div ref={crestRef} className="inline-flex items-center pill-status bg-[#111117]/90 border border-[#D4AF37]/35 shadow-[0_0_20px_rgba(212,175,55,0.12)] mb-6 sm:mb-8 max-w-[94vw]">
+        <div ref={crestRef} className="inline-flex items-center pill-status bg-[#111117]/90 border border-[#D4AF37]/35 shadow-[0_0_20px_rgba(212,175,55,0.12)] mb-6 sm:mb-8 max-w-[94vw] text-center">
           <CityScissorLogo className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" glow={false} />
-          <span className="text-[10px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.25em] text-[#E6CA65] font-mono font-semibold">
+          <span className="text-[9px] xs:text-[10px] sm:text-xs uppercase tracking-[0.1em] sm:tracking-[0.25em] text-[#E6CA65] font-mono font-semibold truncate sm:whitespace-normal">
             Opp. BRTS Bus Stop • Ambawadi • Ahmedabad
           </span>
         </div>
@@ -141,13 +147,13 @@ export default function HeroSection({ onOpenBooking, onExploreServices }) {
         </p>
 
         {/* 4. Symmetrical Centered Luxury CTAs */}
-        <div ref={buttonsRef} className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 mx-auto w-full max-w-[280px] sm:max-w-none">
+        <div ref={buttonsRef} className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 mx-auto w-full max-w-[320px] sm:max-w-none px-2">
           <button
             onClick={() => {
               audioManager.playScissorSnip();
               onOpenBooking();
             }}
-            className="btn-gold pill-large w-full sm:w-[300px] font-bold tracking-widest uppercase cursor-pointer shadow-2xl hover:scale-105 transition-transform flex items-center justify-center gap-3"
+            className="btn-gold pill-large w-full sm:w-[300px] font-bold tracking-wider sm:tracking-widest uppercase cursor-pointer shadow-2xl hover:scale-105 transition-transform flex items-center justify-center gap-2.5 sm:gap-3 text-xs sm:text-sm"
           >
             <Scissors className="w-4 h-4 text-black shrink-0" />
             <span>Reserve Appointment</span>
@@ -158,7 +164,7 @@ export default function HeroSection({ onOpenBooking, onExploreServices }) {
               audioManager.playClick();
               onExploreServices?.();
             }}
-            className="btn-outline-gold pill-large w-full sm:w-[300px] font-semibold tracking-widest uppercase cursor-pointer hover:scale-105 transition-transform flex items-center justify-center gap-3"
+            className="btn-outline-gold pill-large w-full sm:w-[300px] font-semibold tracking-wider sm:tracking-widest uppercase cursor-pointer hover:scale-105 transition-transform flex items-center justify-center gap-2.5 sm:gap-3 text-xs sm:text-sm"
           >
             <span>Explore Services</span>
             <ArrowRight className="w-4 h-4 text-[#D4AF37] shrink-0" />

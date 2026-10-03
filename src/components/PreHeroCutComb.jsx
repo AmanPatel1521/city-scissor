@@ -12,10 +12,11 @@ import { audioManager } from '../utils/audioManager';
 import { Scissors } from 'lucide-react';
 
 export default function PreHeroCutComb({ onIntroProgress, onIntroComplete }) {
+  const isMobileInitial = typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches;
   const canvasRef = useRef(null);
-  const [displayProgress, setDisplayProgress] = useState(0); // 0 to 1 (Cut phase)
-  const [isCompleted, setIsCompleted] = useState(false);
-  const [isUnmounted, setIsUnmounted] = useState(false);
+  const [displayProgress, setDisplayProgress] = useState(isMobileInitial ? 1 : 0); // 0 to 1 (Cut phase)
+  const [isCompleted, setIsCompleted] = useState(isMobileInitial);
+  const [isUnmounted, setIsUnmounted] = useState(isMobileInitial);
 
   const sceneRef = useRef(null);
   const rendererRef = useRef(null);
@@ -37,6 +38,11 @@ export default function PreHeroCutComb({ onIntroProgress, onIntroComplete }) {
   const hasTriggeredSnipSoundRef = useRef(false);
 
   useEffect(() => {
+    if (isMobileInitial) {
+      onIntroProgress?.(1);
+      onIntroComplete?.();
+      return;
+    }
     if (!canvasRef.current) return;
 
     const width = window.innerWidth;
@@ -298,7 +304,7 @@ export default function PreHeroCutComb({ onIntroProgress, onIntroComplete }) {
     targetProgressRef.current = 1.0;
   };
 
-  if (isUnmounted) return null;
+  if (isMobileInitial || isUnmounted) return null;
 
   const isFullyOpen = displayProgress >= 0.95 || isCompleted;
 

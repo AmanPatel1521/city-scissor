@@ -135,13 +135,13 @@ export default function Navbar({ onOpenBooking, isAudioActive, onToggleAudio }) 
             {isAudioActive ? <Volume2 className="w-4 h-4 text-[#D4AF37]" /> : <VolumeX className="w-4 h-4" />}
           </button>
 
-          {/* Reserve Slot Button with Spacious Pill Border & Zero Edge Clipping (Desktop & Tablet) */}
+          {/* Reserve Slot Button (Desktop & Tablet only) */}
           <button
             onClick={() => {
               audioManager.playClick();
               onOpenBooking();
             }}
-            className="hidden sm:inline-flex btn-gold pill-medium text-xs font-bold tracking-wider uppercase items-center gap-2.5 cursor-pointer shrink-0 shadow-[0_0_20px_rgba(212,175,55,0.35)] hover:scale-105 transition-transform whitespace-nowrap overflow-hidden"
+            className="hidden sm:inline-flex btn-gold px-5 py-2.5 rounded-full text-xs font-bold tracking-wider uppercase items-center gap-2.5 cursor-pointer shrink-0 shadow-[0_0_20px_rgba(212,175,55,0.35)] hover:scale-105 transition-transform whitespace-nowrap"
           >
             <Calendar className="w-4 h-4 text-black shrink-0" />
             <span>RESERVE SLOT</span>
@@ -162,7 +162,7 @@ export default function Navbar({ onOpenBooking, isAudioActive, onToggleAudio }) 
 
       {/* Mobile Drawer */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden bg-[#0a0a0f]/98 border-b border-[#D4AF37]/20 px-6 py-6 space-y-4">
+        <div className="lg:hidden bg-[#070709] border-b border-[#D4AF37]/20 px-6 py-6 space-y-4 shadow-[0_20px_50px_rgba(0,0,0,0.95)]">
           <nav className="flex flex-col space-y-3">
             {navLinks.map((link) => (
               <a
